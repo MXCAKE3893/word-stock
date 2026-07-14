@@ -68,25 +68,56 @@ let selectedMistakeIds = new Set();
 let mistakeStatusFilter = "all";
 let mistakeCountFilter = null;
 
+function parseCsvRows(csv) {
+  const rows = [];
+  let row = [];
+  let value = "";
+  let quoted = false;
+
+  for (let index = 0; index < csv.length; index += 1) {
+    const character = csv[index];
+    if (quoted) {
+      if (character === '"' && csv[index + 1] === '"') {
+        value += '"';
+        index += 1;
+      } else if (character === '"') {
+        quoted = false;
+      } else {
+        value += character;
+      }
+    } else if (character === '"' && value === "") {
+      quoted = true;
+    } else if (character === ",") {
+      row.push(value);
+      value = "";
+    } else if (character === "\n") {
+      row.push(value);
+      rows.push(row);
+      row = [];
+      value = "";
+    } else if (character !== "\r") {
+      value += character;
+    }
+  }
+
+  if (value || row.length) {
+    row.push(value);
+    rows.push(row);
+  }
+  return rows;
+}
+
 function parseWordsCsv(csv) {
   const parsed = [];
   let previousJapanese = "";
 
-  for (const rawLine of csv.replace(/^\uFEFF/, "").split(/\r?\n/).slice(1)) {
-    const match = rawLine.match(/^\s*(\d+)\s*,\s*(.*)$/);
-    if (!match) continue;
+  for (const columns of parseCsvRows(csv.replace(/^\uFEFF/, "")).slice(1)) {
+    if (columns.length !== 3) continue;
+    const id = Number(columns[0]);
+    const english = columns[1].trim();
+    let japanese = columns[2].trim();
+    if (!Number.isInteger(id)) continue;
 
-    const id = Number(match[1]);
-    const columns = match[2].split(",").map((column) => column.trim());
-    let japaneseIndex = columns.findIndex((column, index) => index > 0 && /[ぁ-んァ-ヶ一-龠〃]/.test(column));
-
-    if (japaneseIndex < 0) {
-      japaneseIndex = columns.length > 1 ? 1 : -1;
-    }
-
-    const english = columns.slice(0, japaneseIndex).join(", ").trim();
-    let japanese = columns.slice(japaneseIndex).join(", ").trim();
-    japanese = japanese.replace(/(\d),\s+(?=\d{3}\b)/g, "$1,");
     if (japanese === "//" || japanese.startsWith("//")) {
       japanese = `${previousJapanese}${japanese.slice(2)}`;
     }

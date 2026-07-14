@@ -1,828 +1,828 @@
-ID, 単語, 日本語
-1, be/am, is, are, ～です/ある/いる
-2, become, ～になる
-3, begin, 始める/始まる
-4, break, 壊れる/壊す
-5, bring, 持ってくる
-6, build, 建てる
-7, burned, 燃やす
-8, buy, 買う
-9, catch, つかまえる
-10, choose, 選ぶ
-11, come, 来る
-12, cut, 切る
-13, do/does, する
-14, draw, （絵を）描く/（線を）引く
-15, drink, 飲む
-16, drive, 運転する
-17, eat, 食べる
-18, fall, 落ちる/倒れる
-19, feel, 感じる
-20, find, 見つける/発見する
-21, forget, 忘れる
-22, get, 得る/手に入れる
-23, give, 与える
-24, go, 行く
-25, grow, 成長する/育つ
-26, have/has, 持っている/ある
-27, hear, 聞く
-28, hold, 保つ/握る/開催する
-29, hurt, 傷つける
-30, kept, 保つ/～し続ける
-31, know, 知っている
-32, leave, 出発する/置いていく
-33, lose, なくす/負ける
-34, make, 作る/～させる
-35, mean, 意味する
-36, meet, 会う/集合する
-37, pay, 支払う
-38, put, 置く
-39, read, 読む
-40, ride, 乗る
-41, rise, 上がる
-42, run, 走る
-43, say, 言う
-44, see, 見る/会う
-45, sell, 売る
-46, send, 送る
-47, set, 準備する
-48, showed, 見せる/案内する
-49, sing, 歌う
-50, sit, 座る
-51, spread, 広がる
-52, sleep, 眠る/(名)睡眠
-53, speak, 話す
-54, stand, 立つ
-55, steal, 盗む
-56, swim, 泳ぐ
-57, take, とる/乗る
-58, teach, 教える
-59, tell, 告げる/言う
-60, think, 思う/考える
-61, understand, 理解する
-62, wake (up), 目が覚める
-63, wear, 着る
-64, win, 勝つ
-65, write, 書く
-66, agree, 賛成する
-67, answer, 答える/電話に出る
-68, apologize, 謝る
-69, appear, 現れる
-70, arrive at ～, ～に到着する
-71, ask, 尋ねる/頼む
-72, attend, 出席する
-73, believe, 信じる
-74, borrow, 借りる
-75, brush, みがく/ブラシをかける
-76, call, 呼ぶ/電話する
-77, carry, 運ぶ
-78, celebrate, 祝う
-79, change, 変わる/変える/着替える
-80, check, 点検する/調べる
-81, cheer, 応援する/元気づける
-82, clean, そうじする/(形)きれいな
-83, climb, 登る
-84, close (動), 閉める
-85, close (形), (形)近い
-86, collect, 集める
-87, communicate, 意思を伝える
-88, compare, 比べる
-89, connect, つなぐ
-90, continue, 続ける
-91, cook, 料理する
-92, count, 数える
-93, cover, おおう
-94, create, 創造する/作り出す
-95, cry, 泣く/叫ぶ
-96, decide, 決める/決心する
-97, decorate, 飾る
-98, develop, 発達させる
-99, die, 死ぬ
-100, disagree, 反対する
-101, disappear, 消滅する/消える
-102, drop, 落とす/落ちる
-103, dry, かわかす
-104, earn, (お金を)かせぐ
-105, elect, 選ぶ
-106, end, 終わる
-107, enjoy, 楽しむ
-108, enter, 入る
-109, exchange, 交換する
-110, excuse, 許す
-111, explain, 説明する
-112, face, 直面する/(名)顔
-113, finish, 終える
-114, fix, (小さな物を)修理する
-115, follow, 従う
-116, gather, 集める
-117, guess, 推測する
-118, happen, 起こる
-119, hope, 望む
-120, hurry (up), 急ぐ
-121, improve, 改善する
-122, influence, ～に影響を及ぼす
-123, introduce, 紹介する
-124, invent, 発明する
-125, jog, ゆっくり走る
-126, join, 参加する/加わる
-127, kill, 殺す
-128, knock, ノックする
-129, learn, 学ぶ/習う
-130, like, 好きである
-131, listen to ～, ～を聞く
-132, live, 住んでいる
-133, look, 見る/見える
-134, love, 大好きである/愛する
-135, miss, 見逃す/乗り遅れる/～がいなくてさびしい
-136, move, 動く/引っ越す/感動させる
-137, name after ～, ～になんで名づける
-138, need, 必要とする
-139, open, 開ける
-140, order, 命令する/注文する
-141, paint, (絵の具で絵を)描く/ぬる
-142, Pardon?, 何とおっしゃいましたか?
-143, pass, 手渡す/通り過ぎる
-144, perform, 演じる
-145, pick, つまむ
-146, plan, 計画する
-147, play, (運動や遊びを)する/(楽器を)演奏する
-148, point, 指さす
-149, post, (情報を)掲示する
-150, practice, 練習する
-151, prepare, 準備する
-152, produce, 生産する
-153, promise, 約束する
-154, pull, ひっぱる
-155, push, 押す
-156, rain, 雨が降る
-157, realize, 気づく
-158, receive, 受け取る
-159, remember, 覚えている/思い出す
-160, remain, 残る
-161, repair, (大がかりな)修理する
-162, relax, くつろぐ
-163, research, 調査する/研究する
-164, save, 救う/蓄える/節約する
-165, select, 選ぶ
-166, share, 分かち合う/共有する
-167, smile, ほほえむ
-168, snow, 雪が降る
-169, sound, ～のように聞こえる
-170, spell, つづる/書く
-171, start, 出発する/始める
-172, stay, 滞在する
-173, stop, 止まる/やめる/(名)バス停
-174, study, 勉強する/研究する
-175, support, 支援する
-176, surprise, 驚かせる
-177, talk, (二人で)話す
-178, thank, 感謝する
-179, touch, さわる
-180, train, 訓練する/(名)電車
-181, travel, 旅行する
-182, treat, 扱う
-183, try, やってみる/試す
-184, turn, 曲がる
-185, use, 使う/利用する
-186, visit, 訪れる
-187, wait (for ～), 待つ
-188, walk, 歩く/歩いていく
-189, wash, 洗う
-190, watch, (テレビなどを)見る
-191, welcome, 歓迎する/迎える
-192, wish ～, ～を願う
-193, wonder, ～かしらと思う
-194, work, 働く/(名)仕事
-195, worry, 心配する/悩む
-196, wrap, 巻く
-197, can ～, ～できる
-198, be able to ～, (書きかえ) ～できるようになる
-199, will ～, ～するでしょう
-200, be going to ～, ～するつもりです
-201, must ～, ～しなければなりません
-202, have to ～/has to ～, (書きかえ) ～する必要がある
-203, don't (doesn't) have to ～, ～する必要はない
-204, may～, ～してもよい/～かもしれない
-205, should～, ～するべきです
-206, could, canの過去形
-207, would, willの過去形
-208, won't, will notの短縮形
-209, Can I～?, ～してもいいですか
-210, May I～?, //
-211, Can you～?, ～てもらえますか
-212, Will you～?, //
-213, Please～., //(書きかえ)
-214, must not～, ～してはいけない
-215, Don't～., //(書きかえ)
-216, Shall I～?, ～してあげましょうか
-217, Shall we～?, (一緒に)～しましょうか
-218, Let's～., //(書きかえ)
-219, good, 良い
-220, well, 上手に/え～と/(名)丼
-221, better - best, 比較級ー最上級
-222, bad, 悪い
-223, ill, 病気の
-224, worse - worst, 比較級ー最上級
-225, many, 多数の(数えられる物)
-226, much, 多量の(数えられない物)
-227, more - most, 比較級ー最上級
-228, tall, 背が高い
-229, taller-tallest, 比較級ー最上級
-230, large, 大きい/広い
-231, larger-largest, 比較級ー最上級
-232, easy, 簡単な
-233, easier-easiest, 比較級ー最上級
-234, big, 大きい
-235, bigger-biggest, 比較級ー最上級
-236, useful, 役に立つ
-237, more useful - most useful, 比較級ー最上級 (3音節以上の形容詞)
-238, active, 活発な/活動的な
-239, alive, 生きている
-240, amazing, 驚くべき
-241, ancient, 古代の
-242, another, もう一つの
-243, attractive, 魅力的な
-244, beautiful, 美しい
-245, bored, 退屈した
-246, brave, 勇気のある/勇敢な
-247, British, イギリスの
-248, busy, 忙しい/にぎやかな
-249, careful, 注意深い
-250, cheap, 値段が安い
-251, cheerful, 陽気な
-252, clever, 賢い/頭がいい
-253, cloudy, 曇りの
-254, cold, 冷たい/寒い/(名)風邪
-255, colorful, 色とりどりの
-256, common, 普通の/常識的な
-257, cool, 涼しい/かっこいい
-258, crowded, 混雑した/満員の
-259, cute, かわいいらしい
-260, dark, 暗い
-261, dear, 親愛なる
-262, deep, 深い
-263, delicious, とてもおいしい
-264, different, ちがった/いろいろな
-265, difficult, 難しい/困難な
-266, each, それぞれの
-267, early, 早い/(副)早く
-268, elderly, 年配の
-269, else, ほかの
-270, enough, 十分な
-271, every, それぞれの
-272, excited, (人が)わくわくする
-273, exciting, (モノが)わくわくする
-274, expensive, 値段が高い
-275, famous, 有名な
-276, favorite, お気に入りの
-277, few, ～がほとんどない(可算)
-278, a few, 少しの～(可算)
-279, little, ～がほとんどない(不可算)/小さくてかわいい
-280, a little, 少量の～(不可算)
-281, fine, 元気な/天気がいい
-282, foreign, 外国の
-283, free, ひまな/自由な
-284, friendly, 友好的な/人なつっこい
-285, full, いっぱいの/満腹の
-286, funny, おかしい
-287, general, 一般的な
-288, glad, うれしい
-289, golden, 金色の/すばらしい
-290, grand, 雄大な/大きな
-291, great, すばらしい/偉大な/すごい
-292, hard, 固い/つらい/(副)熱心に
-293, healthy, 健康的な
-294, heavy, 重い
-295, helpful, 助けになる/役立つ
-296, high, 高い
-297, hot, 熱い/暑い/からい
-298, important, 重要な
-299, interesting, おもしろい/興味深い
-300, international, 国際的な
-301, kind, 親切な/(名)種類
-302, late, 遅い/遅れた
-303, leading, 主要な
-304, light, 軽い/色が薄い/(名)明かり/信号
-305, sure, 確信して/いいですよ
-306, lonely, さびしい/ひとりぼっちの
-307, low, 低い
-308, lucky, 幸運な
-309, main, 主な
-310, mechanical, 機械の
-311, medium, 中くらいの/Mサイズの
-312, national, 国の/国家の
-313, natural, 自然の
-314, necessary, 必要な
-315, nervous, 緊張して
-316, next, 次の
-317, nice, すてきな
-318, noisy, うるさい/さわがしい
-319, old, 古い/年とった
-320, original, 独自の
-321, wonderful, すばらしい
-322, other, ほかの
-323, own, 自分自身の
-324, perfect, 完全な/最適な
-325, playful, 楽し気な/陽気な
-326, poor, 貧しい/かわいそうな
-327, popular, 人気がある
-328, precious, 貴重な/大切な
-329, pretty, かわいい
-330, quiet, 静かな
-331, raw, 生の
-332, rich, 金持ちの
-333, right, 正しい/ちょうど/右
-334, round, 丸い
-335, sad, 悲しい
-336, safe, 安全な
-337, same, 同じの
-338, scary, 恐ろしい
-339, serious, 重大な/状況が厳しい
-340, several, いくつかの
-341, severe, 厳しい
-342, short, 短い/背が低い
-343, shy, 内気な/はずかしがりの
-344, similar, 似ている/同じような
-345, sleepy, 眠い
-346, small, 小さい
-347, snowy, 雪の
-348, soft, やわらかい
-349, some, いくつかの
-350, sorry, 残念な/申し訳ない/気の毒な
-351, special, 特別な
-352, specific, 特定の/具体的な
-353, strange, 奇妙な/不思議な
-354, strong, 強い
-355, such, そのような/そんなに
-356, sunny, 晴れの
-357, sure, 確信して/いいですよ
-358, surprised, 驚いた
-359, sweet, 甘い
-360, tall, 背が高い
-361, terrible, 恐ろしい
-362, thick, 濃い/ぶ厚い
-363, tired, 疲れている
-364, true, 本当の
-365, traditional, 伝統的な
-366, unique, 特有の
-367, various, さまざまな
-368, warm, 暖かい
-369, weak, 弱い/弱った
-370, wide, はば広い
-371, wild, 野生の
-372, wonderful, すばらしい
-373, wrong, まちがった/具合が悪い
-374, young, 若い
-375, abroad, 海外で/外国で
-376, according to～, ～によれば
-377, again, もう一度/再び
-378, ～ago, ～前に
-379, ahead, 前へ
-380, all, すべて/(形)すべての
-381, almost, ほとんど
-382, alone, 一人で
-383, already, もう/すでに
-384, also, ～もまた/そのうえ
-385, always, いつも
-386, anyway, とにかく
-387, anywhere, (否定文で)どこにも～ない
-388, away, はなれて/なくなって
-389, back, もどって/後ろに
-390, carefully, 注意深く
-391, certainly, 確かな/承知しました
-392, clearly, はっきりと
-393, directly, 直接に
-394, down, 下へ
-395, easily, 簡単に/容易に
-396, effectively, 効果的に
-397, especially, 特に
-398, even, ～でさえ
-399, eventually, 最後には/ようやく
-400, everywhere, どこでも
-401, far, 遠くに
-402, fast, 速く
-403, forever, 永久に
-404, globally, 世界的に
-405, half, 半分だけ
-406, harmoniously, 調和して
-407, however, しかしながら
-408, here, ここで/ここに
-409, inside, 内側に
-410, just, ちょうど/ただ～だけ
-411, later, あとで
-412, left, 左に
-413, locally, その場所で
-414, loudly, 大声で
-415, maybe, たぶん/もしかすると
-416, never, 決して～ない
-417, off, 休んで
-418, often, よく/しばしば
-419, once, 一度/以前は
-420, only, ただ～だけ
-421, originally, もともとは
-422, out, 外へ/外出して
-423, outside, 外で
-424, perhaps, たぶん(確率30%)
-425, probably, たぶん(確率80%)
-426, quickly, すばやく
-427, really, 本当に
-428, slowly, ゆっくりと
-429, so, とても/そのように/だが
-430, someday, いつか
-431, sometime, いつか/そのうち
-432, sometimes, ときどき
-433, soon, すぐに/間もなく
-434, still, まだ/今でも
-435, straight, まっすぐに
-436, suddenly, 突然
-437, then, そのとき/それから
-438, there, そこで/そこに
-439, together, いっしょに
-440, too, ～も/あまりにも～
-441, twice, 二度/二倍
-442, up, 上へ
-443, usually, たいてい/ふつうは
-444, very, とても/(否)あまり～ない
-445, yet, (否)まだ(疑)もう
-446, about, ～について/約～
-447, across, ～を横切って
-448, after, ～の後で
-449, against, ～に反対して
-450, along, ～に沿って
-451, among, ～の間で
-452, around, ～のまわりで
-453, as, ～として/～につれて
-454, as ～ as A, Aと同じくらい～
-455, at, (時刻/場所)～に/～で
-456, because ～, なぜならば～なので
-457, before, ～の前に/以前
-458, behind, ～の後ろ側に
-459, beside, ～のそばに
-460, between A and B, AとBの間で
-461, both A and B, AとBの両方
-462, by ～, ～のそばで/～までに
-463, during ～, ～の期間ずっと
-464, for ～, ～のために/～の間
-465, from ～, ～から
-466, if ～, もし～ならば
-467, in ～, ～の中
-468, into ～, ～の中に
-469, like ～, ～のように
-470, near ～, ～の近くで
-471, of ～, ～の
-472, on ～, ～の上/(日)～に
-473, or ～, または～
-474, over ～, ～をこえて/～至る所
-475, than ～, ～よりも
-476, that ～, ～だと
-477, through ～, ～を通って/～によって
-478, till ～/until ～, ～までずっと
-479, to ～, ～へ/～まで
-480, under ～, ～の下
-481, with ～, ～といっしょに/～を使って
-482, without ～, ～なしで/～しないで
-483, when ～, ～の時
-484, , すべての曜日
-485, , すべての月名
-486, , すべての季節
-487, spring, 春/ばね/温泉
-488, , 0~99
-489, hundred, 100
-490, thousand, 1,000
-491, ten thousand, 10,000
-492, ~dollars(s), $, ~ドル
-493, first / second, 1番目/最初/2番目
-494, third / fourth, 3番目/4番目
-495, fifth / eighth, 5番目/8番目
-496, ninth / twelfth, 9番目/12番目
-497, twentieth/thirtieth, 20番目/30番目
-498, child / children, 子ども 単数/複数
-499, man / men, 男性 単数/複数
-500, woman / women, 女性 単数/複数
-501, tooth / teeth, 歯 単数/複数
-502, foot / feet, 足 単数/複数
-503, knife / knives, ナイフ 単数/複数
-504, leaf / leaves, 葉 単数/複数
-505, fish / fish, 魚 単数/複数
-506, sheep / sheep, 羊 単数/複数
-507, Japanese / Japanese, 日本人 単数/複数
-508, nursery school, 保育園
-509, kindergarten, 幼稚園
-510, elementary school, 小学校
-511, junior high school, 中学校
-512, high school, 高校
-513, college, (単科)大学/専門学校
-514, university, 総合大学
-515, activity, 活動
-516, actor, 俳優
-517, age, 年令/時代
-518, anyone, (否)だれも～ない/(疑)だれか
-519, anything, (否)何も～ない
-520, area, 区域
-521, art, 芸術/美術
-522, article, 記事
-523, athlete, 運動選手
-524, aunt / uncle, おば/おじ
-525, bathroom, お風呂場/トイレ
-526, birthday, 誕生日
-527, blossom, (実なる木の)花
-528, bottle, びん
-529, bridge, 橋
-530, care, 世話
-531, case, 場合
-532, center, 中心
-533, century, 世紀
-534, childhood, 子どもの頃
-535, chorus, コーラス
-536, church, 教会
-537, clerk/salesclerk, 店員
-538, clothes, 衣服
-539, community, 共同体
-540, company, 会社
-541, conference, 会議
-542, contact, 接触
-543, content, 中身/内容
-544, convenience, 便利
-545, corner, 角/曲がり角
-546, country, 国/いなか
-547, cousin, いとこ
-548, crowd, 群集/人ごみ
-549, culture, 文化
-550, custom, 習慣
-551, customer, 客
-552, daughter / son, 娘/息子
-553, dentist, 歯医者
-554, detail, 詳細
-555, dictionary, 辞書
-556, dinosaur, 恐竜
-557, dream, 夢
-558, earth, 地球
-559, earthquake, 地震
-560, effort, 努力
-561, electricity, 電気
-562, engineer, 技術者/エンジニア
-563, east / west, 東/西
-564, south / north, 南/北
-565, environment, 環境
-566, event, 行事
-567, everyone, みなさん
-568, everything, なんでも/すべてのこと
-569, experience, 経験
-570, factory, 工場
-571, feature, 特徴/特色
-572, feeling, 気持ち
-573, festival, 祭り
-574, fever, 熱
-575, field, 野原/畑
-576, fireworks, 花火
-577, floor, 床/～階
-578, forest, 森
-579, fossil, 化石
-580, freedom, 自由
-581, fridge, 冷蔵庫
-582, front, 前/正面
-583, fun, 楽しいこと
-584, future, 未来/将来
-585, gift, 贈り物
-586, goods, 物品
-587, grandma/grandpa, おばあちゃん/おじいちゃん
-588, Mom / Dad, ママ/パパ
-589, greeting, あいさつ
-590, group, グループ
-591, guest, 客
-592, guide, ガイド/案内人
-593, headache, 頭痛
-594, heart, 心
-595, herself, 彼女自身
-596, himself, 彼自身
-597, history, 歴史
-598, hobby, 趣味
-599, hole, 穴
-600, holiday, 休日
-601, human, 人間
-602, husband, 夫
-603, information, 情報
-604, invention, 発明
-605, island, 島
-606, job, 仕事
-607, kindness, 親切
-608, knowledge, 知識
-609, lake, 湖
-610, land, 土地
-611, language, 言語
-612, lawyer, 弁護士
-613, line, 行/列/線
-614, ma'am, (女性に対して)お客様
-615, market, 市場
-616, mayor, 市長
-617, meaning, 意味
-618, medicine, 薬
-619, memory, 思い出
-620, middle, 真ん中
-621, museum, 博物館
-622, musician, 音楽家
-623, myself, 私自身
-624, nature, 自然
-625, neighbor, 隣人
-626, neighborhood, 近所
-627, no, 一つも～ない
-628, note, メモ
-629, nothing, 何もない
-630, number, 数
-631, office, 事務所
-632, parent/parents, 親/両親
-633, party, パーティー
-634, passenger, 乗客
-635, past, 過去
-636, people, 人々
-637, performance, パフォーマンス
-638, period, (授業の)～時間
-639, person, 個人
-640, photo(photograph), 写真
-641, photographer, 写真家
-642, piece, 部品
-643, planet, 惑星
-644, plant, 植物
-645, pleasure, 楽しみ
-646, police officer, おまわりさん
-647, pond, 池
-648, present, プレゼント/現在
-649, presentation, 発表
-650, price, 値段
-651, problem, 問題
-652, product, 製品
-653, professor, 教授
-654, program / show, 番組 / ショー
-655, progress, 進歩/発達
-656, question, 質問/問題
-657, reason, 理由
-658, relation, 関係
-659, reservation, 予約
-660, rest, 休息
-661, restaurant, レストラン
-662, result, 結果
-663, report, レポート/報告書
-664, scene, 光景/シーン
-665, sentence, 文
-666, shape, 形
-667, shrine, 神社
-668, sightseeing, 観光
-669, skill, 技術
-670, something, 何か～のもの
-671, space, 宇宙
-672, stadium, 競技場/スタジアム
-673, stomachache, 腹痛
-674, standard, 基準
-675, stairs, 階段
-676, street, 通り
-677, strength, 強さ/長所
-678, subway/(英)tube, (米)subway/(英)tube
-679, surprise, 驚くべきこと
-680, symbol, シンボル/記号
-681, technology, 科学技術
-682, temple, お寺
-683, theater, 映画館/劇場
-684, thing, もの/こと
-685, tonight, 今夜
-686, tomorrow, 明日
-687, toothache, 歯痛
-688, topic, 話題
-689, towel, タオル
-690, tower, タワー
-691, traffic, 交通
-692, trash, ごみ
-693, trouble, 困難
-694, uniform, 制服/ユニフォーム
-695, vacation, 休暇
-696, vegetable, 野菜
-697, vending machine, 自動販売機
-698, view, 景色/ながめ
-699, village, 村
-700, voice, 声
-701, volunteer, ボランティア
-702, wallet, さいふ
-703, way, 方法/道
-704, weather, 天気
-705, weekend / weekday, 週末/平日
-706, wheelchair, 車いす
-707, wife, 妻
-708, wisdom, 知恵
-709, yourself, あなた自身の
-710, Why?, なぜ?
-711, How often?, 何回?
-712, ~hour(s), (単位)～時間
-713, ~minute(s), (単位)～分
-714, ~second(s), (単位)～秒
-715, a lot of～, たくさんの～
-716, a kind of～, ～の種類
-717, a cup of～, 一杯の(温かい飲み物)
-718, a glass of～, 一杯の(冷たい飲み物)
-719, a pair of～, 一対の～
-720, a piece of～, 一枚の～/一切れの～
-721, a part of～, ～の一部
-722, again and again, 何度も何度も
-723, be about to～, 今にも～しようとしている
-724, be absent from～, ～を休む
-725, be afraid of～, ～を恐れる
-726, be based on～, ～に基づいている
-727, be careful of～, ～に気をつける
-728, be covered with～, ～で覆われている
-729, be different from～, ～と異なる
-730, be famous for～, ～で有名です
-731, be fond of～, ～が好きである
-732, be full of～, ～でいっぱいでる
-733, be good at～, ～が得意です
-734, be interested in～, ～に興味がある
-735, be known as～, ～として知られている
-736, be known to～, ～に知られている
-737, be late for～, ～に遅れる
-738, be made from～(原料), ～でできている
-739, be made of～(材料), ～でできている
-740, be pleased with～, ～を気に入る
-741, be popular with～, ～で人気がある
-742, be ready for～, ～の準備ができている
-743, be surprised at～, ～に驚く
-744, be in～club, ～クラブに入っている
-745, be on～team, ～チームに入っている
-746, be over, 終わる
-747, There is/are～, ～がある/いる
-748, agree with～, ～に賛成する
-749, arrive at(in)～, ～に到着する
-750, get to～, ～に到着する
-751, bring back, 思い出させる
-752, call～back, ～に折り返し電話する
-753, come back, もどる
-754, come in, 中に入る
-755, come to～, ～するようになる
-756, come true, 実現する
-757, get on↔get off, 乗る↔降りる
-758, go～ing, ～しに行く
-759, go to bed↔get up, 寝る↔起きる
-760, go back, もどる/帰る
-761, go home, 帰宅する(帰っていく)
-762, come home, 帰宅する(帰ってくる)
-763, get home, 帰宅する(家に着く)
-764, go for a walk, 散歩に行く
-765, take a walk, 散歩する
-766, give up, あきらめる
-767, hear from～, ～から便りがある
-768, write to～, ～に手紙を書く
-769, leave(A) for～, ～へ向けて(A)を出発する
-770, look for～, ～を探す
-771, look like～, ～のように見える
-772, look forward to～, ～を楽しみにする
-773, make a mistake, まちがいをする
-774, run away, 逃げる
-775, show(A) around～, (人)に～を案内する
-776, speak to～, ～に話しかける
-777, put on～, ～を着る/身につける
-778, take off～, ～を脱ぐ
-779, take A to～, Aを～に持って行く/連れていく
-780, take a bath(shower), ふろ(シャワー)に入る
-781, take care of～, ～の世話をする
-782, take part in～, ～に参加する
-783, turn on～↔turn off～, 電源を入れる↔切る
-784, want to～, ～したい
-785, would like to～, ～がほしい
-786, would like～, 〃
-787, Would you like～?, ～はいかがですか。
-788, Why don't we～?, ～するのはどうですか
-789, Why don't you～?, ～してはいかがですか
-790, after all, とうとう/ついに
-791, at last, ついに
-792, after a while, しばらくして
-793, all day long, 一日中
-794, all night long, ひと晩中
-795, ～and so on, ～など
-796, at once, すぐに
-797, at the same time, 同時に
-798, for a while, しばらくの間
-799, for the first time, はじめて
-800, because of～, ～のために
-801, by the way, ところで
-802, each other, お互いに
-803, for example, たとえば
-804, in front of～, ～の前に
-805, in order to～, ～するために
-806, in the old days, かつては(昔は)
-807, in line, 一列に並んで
-808, little by little, 少しずつ
-809, more than～, ～以上
-810, next to～, ～の隣に
-811, not～at all, 少しも～でない
-812, on foot, 歩いて
-813, on TV(the radio), テレビ(ラジオ)で
-814, one day, ある日
-815, over there, 向こうで
-816, right now(away), 今すぐ
-817, some day, いつか
-818, these days, このごろ
-819, thank you for～, ～にありがとう
-820, It's time to～, ～する時間です
-821, No problem., 問題なしです/大丈夫
-822, Just(Wait) a minute., 少し待ってください
-823, once a day, (例)一日に一回
-824, twice a week, (例)一週間に二回
-825, three times a month, (例)一か月に三回
-826, global warming, 地球温暖化
-827, world heritage site, 世界遺産
+ID,単語,日本語
+1,"be/am, is, are",～です/ある/いる
+2,become,～になる
+3,begin,始める/始まる
+4,break,壊れる/壊す
+5,bring,持ってくる
+6,build,建てる
+7,burned,燃やす
+8,buy,買う
+9,catch,つかまえる
+10,choose,選ぶ
+11,come,来る
+12,cut,切る
+13,do/does,する
+14,draw,（絵を）描く/（線を）引く
+15,drink,飲む
+16,drive,運転する
+17,eat,食べる
+18,fall,落ちる/倒れる
+19,feel,感じる
+20,find,見つける/発見する
+21,forget,忘れる
+22,get,得る/手に入れる
+23,give,与える
+24,go,行く
+25,grow,成長する/育つ
+26,have/has,持っている/ある
+27,hear,聞く
+28,hold,保つ/握る/開催する
+29,hurt,傷つける
+30,kept,保つ/～し続ける
+31,know,知っている
+32,leave,出発する/置いていく
+33,lose,なくす/負ける
+34,make,作る/～させる
+35,mean,意味する
+36,meet,会う/集合する
+37,pay,支払う
+38,put,置く
+39,read,読む
+40,ride,乗る
+41,rise,上がる
+42,run,走る
+43,say,言う
+44,see,見る/会う
+45,sell,売る
+46,send,送る
+47,set,準備する
+48,showed,見せる/案内する
+49,sing,歌う
+50,sit,座る
+51,spread,広がる
+52,sleep,眠る/(名)睡眠
+53,speak,話す
+54,stand,立つ
+55,steal,盗む
+56,swim,泳ぐ
+57,take,とる/乗る
+58,teach,教える
+59,tell,告げる/言う
+60,think,思う/考える
+61,understand,理解する
+62,wake (up),目が覚める
+63,wear,着る
+64,win,勝つ
+65,write,書く
+66,agree,賛成する
+67,answer,答える/電話に出る
+68,apologize,謝る
+69,appear,現れる
+70,arrive at ～,～に到着する
+71,ask,尋ねる/頼む
+72,attend,出席する
+73,believe,信じる
+74,borrow,借りる
+75,brush,みがく/ブラシをかける
+76,call,呼ぶ/電話する
+77,carry,運ぶ
+78,celebrate,祝う
+79,change,変わる/変える/着替える
+80,check,点検する/調べる
+81,cheer,応援する/元気づける
+82,clean,そうじする/(形)きれいな
+83,climb,登る
+84,close (動),閉める
+85,close (形),(形)近い
+86,collect,集める
+87,communicate,意思を伝える
+88,compare,比べる
+89,connect,つなぐ
+90,continue,続ける
+91,cook,料理する
+92,count,数える
+93,cover,おおう
+94,create,創造する/作り出す
+95,cry,泣く/叫ぶ
+96,decide,決める/決心する
+97,decorate,飾る
+98,develop,発達させる
+99,die,死ぬ
+100,disagree,反対する
+101,disappear,消滅する/消える
+102,drop,落とす/落ちる
+103,dry,かわかす
+104,earn,(お金を)かせぐ
+105,elect,選ぶ
+106,end,終わる
+107,enjoy,楽しむ
+108,enter,入る
+109,exchange,交換する
+110,excuse,許す
+111,explain,説明する
+112,face,直面する/(名)顔
+113,finish,終える
+114,fix,(小さな物を)修理する
+115,follow,従う
+116,gather,集める
+117,guess,推測する
+118,happen,起こる
+119,hope,望む
+120,hurry (up),急ぐ
+121,improve,改善する
+122,influence,～に影響を及ぼす
+123,introduce,紹介する
+124,invent,発明する
+125,jog,ゆっくり走る
+126,join,参加する/加わる
+127,kill,殺す
+128,knock,ノックする
+129,learn,学ぶ/習う
+130,like,好きである
+131,listen to ～,～を聞く
+132,live,住んでいる
+133,look,見る/見える
+134,love,大好きである/愛する
+135,miss,見逃す/乗り遅れる/～がいなくてさびしい
+136,move,動く/引っ越す/感動させる
+137,name after ～,～になんで名づける
+138,need,必要とする
+139,open,開ける
+140,order,命令する/注文する
+141,paint,(絵の具で絵を)描く/ぬる
+142,Pardon?,何とおっしゃいましたか?
+143,pass,手渡す/通り過ぎる
+144,perform,演じる
+145,pick,つまむ
+146,plan,計画する
+147,play,(運動や遊びを)する/(楽器を)演奏する
+148,point,指さす
+149,post,(情報を)掲示する
+150,practice,練習する
+151,prepare,準備する
+152,produce,生産する
+153,promise,約束する
+154,pull,ひっぱる
+155,push,押す
+156,rain,雨が降る
+157,realize,気づく
+158,receive,受け取る
+159,remember,覚えている/思い出す
+160,remain,残る
+161,repair,(大がかりな)修理する
+162,relax,くつろぐ
+163,research,調査する/研究する
+164,save,救う/蓄える/節約する
+165,select,選ぶ
+166,share,分かち合う/共有する
+167,smile,ほほえむ
+168,snow,雪が降る
+169,sound,～のように聞こえる
+170,spell,つづる/書く
+171,start,出発する/始める
+172,stay,滞在する
+173,stop,止まる/やめる/(名)バス停
+174,study,勉強する/研究する
+175,support,支援する
+176,surprise,驚かせる
+177,talk,(二人で)話す
+178,thank,感謝する
+179,touch,さわる
+180,train,訓練する/(名)電車
+181,travel,旅行する
+182,treat,扱う
+183,try,やってみる/試す
+184,turn,曲がる
+185,use,使う/利用する
+186,visit,訪れる
+187,wait (for ～),待つ
+188,walk,歩く/歩いていく
+189,wash,洗う
+190,watch,(テレビなどを)見る
+191,welcome,歓迎する/迎える
+192,wish ～,～を願う
+193,wonder,～かしらと思う
+194,work,働く/(名)仕事
+195,worry,心配する/悩む
+196,wrap,巻く
+197,can ～,～できる
+198,be able to ～,(書きかえ) ～できるようになる
+199,will ～,～するでしょう
+200,be going to ～,～するつもりです
+201,must ～,～しなければなりません
+202,have to ～/has to ～,(書きかえ) ～する必要がある
+203,don't (doesn't) have to ～,～する必要はない
+204,may～,～してもよい/～かもしれない
+205,should～,～するべきです
+206,could,canの過去形
+207,would,willの過去形
+208,won't,will notの短縮形
+209,Can I～?,～してもいいですか
+210,May I～?,//
+211,Can you～?,～てもらえますか
+212,Will you～?,//
+213,Please～.,//(書きかえ)
+214,must not～,～してはいけない
+215,Don't～.,//(書きかえ)
+216,Shall I～?,～してあげましょうか
+217,Shall we～?,(一緒に)～しましょうか
+218,Let's～.,//(書きかえ)
+219,good,良い
+220,well,上手に/え～と/(名)丼
+221,better - best,比較級ー最上級
+222,bad,悪い
+223,ill,病気の
+224,worse - worst,比較級ー最上級
+225,many,多数の(数えられる物)
+226,much,多量の(数えられない物)
+227,more - most,比較級ー最上級
+228,tall,背が高い
+229,taller-tallest,比較級ー最上級
+230,large,大きい/広い
+231,larger-largest,比較級ー最上級
+232,easy,簡単な
+233,easier-easiest,比較級ー最上級
+234,big,大きい
+235,bigger-biggest,比較級ー最上級
+236,useful,役に立つ
+237,more useful - most useful,比較級ー最上級 (3音節以上の形容詞)
+238,active,活発な/活動的な
+239,alive,生きている
+240,amazing,驚くべき
+241,ancient,古代の
+242,another,もう一つの
+243,attractive,魅力的な
+244,beautiful,美しい
+245,bored,退屈した
+246,brave,勇気のある/勇敢な
+247,British,イギリスの
+248,busy,忙しい/にぎやかな
+249,careful,注意深い
+250,cheap,値段が安い
+251,cheerful,陽気な
+252,clever,賢い/頭がいい
+253,cloudy,曇りの
+254,cold,冷たい/寒い/(名)風邪
+255,colorful,色とりどりの
+256,common,普通の/常識的な
+257,cool,涼しい/かっこいい
+258,crowded,混雑した/満員の
+259,cute,かわいいらしい
+260,dark,暗い
+261,dear,親愛なる
+262,deep,深い
+263,delicious,とてもおいしい
+264,different,ちがった/いろいろな
+265,difficult,難しい/困難な
+266,each,それぞれの
+267,early,早い/(副)早く
+268,elderly,年配の
+269,else,ほかの
+270,enough,十分な
+271,every,それぞれの
+272,excited,(人が)わくわくする
+273,exciting,(モノが)わくわくする
+274,expensive,値段が高い
+275,famous,有名な
+276,favorite,お気に入りの
+277,few,～がほとんどない(可算)
+278,a few,少しの～(可算)
+279,little,～がほとんどない(不可算)/小さくてかわいい
+280,a little,少量の～(不可算)
+281,fine,元気な/天気がいい
+282,foreign,外国の
+283,free,ひまな/自由な
+284,friendly,友好的な/人なつっこい
+285,full,いっぱいの/満腹の
+286,funny,おかしい
+287,general,一般的な
+288,glad,うれしい
+289,golden,金色の/すばらしい
+290,grand,雄大な/大きな
+291,great,すばらしい/偉大な/すごい
+292,hard,固い/つらい/(副)熱心に
+293,healthy,健康的な
+294,heavy,重い
+295,helpful,助けになる/役立つ
+296,high,高い
+297,hot,熱い/暑い/からい
+298,important,重要な
+299,interesting,おもしろい/興味深い
+300,international,国際的な
+301,kind,親切な/(名)種類
+302,late,遅い/遅れた
+303,leading,主要な
+304,light,軽い/色が薄い/(名)明かり/信号
+305,sure,確信して/いいですよ
+306,lonely,さびしい/ひとりぼっちの
+307,low,低い
+308,lucky,幸運な
+309,main,主な
+310,mechanical,機械の
+311,medium,中くらいの/Mサイズの
+312,national,国の/国家の
+313,natural,自然の
+314,necessary,必要な
+315,nervous,緊張して
+316,next,次の
+317,nice,すてきな
+318,noisy,うるさい/さわがしい
+319,old,古い/年とった
+320,original,独自の
+321,wonderful,すばらしい
+322,other,ほかの
+323,own,自分自身の
+324,perfect,完全な/最適な
+325,playful,楽し気な/陽気な
+326,poor,貧しい/かわいそうな
+327,popular,人気がある
+328,precious,貴重な/大切な
+329,pretty,かわいい
+330,quiet,静かな
+331,raw,生の
+332,rich,金持ちの
+333,right,正しい/ちょうど/右
+334,round,丸い
+335,sad,悲しい
+336,safe,安全な
+337,same,同じの
+338,scary,恐ろしい
+339,serious,重大な/状況が厳しい
+340,several,いくつかの
+341,severe,厳しい
+342,short,短い/背が低い
+343,shy,内気な/はずかしがりの
+344,similar,似ている/同じような
+345,sleepy,眠い
+346,small,小さい
+347,snowy,雪の
+348,soft,やわらかい
+349,some,いくつかの
+350,sorry,残念な/申し訳ない/気の毒な
+351,special,特別な
+352,specific,特定の/具体的な
+353,strange,奇妙な/不思議な
+354,strong,強い
+355,such,そのような/そんなに
+356,sunny,晴れの
+357,sure,確信して/いいですよ
+358,surprised,驚いた
+359,sweet,甘い
+360,tall,背が高い
+361,terrible,恐ろしい
+362,thick,濃い/ぶ厚い
+363,tired,疲れている
+364,true,本当の
+365,traditional,伝統的な
+366,unique,特有の
+367,various,さまざまな
+368,warm,暖かい
+369,weak,弱い/弱った
+370,wide,はば広い
+371,wild,野生の
+372,wonderful,すばらしい
+373,wrong,まちがった/具合が悪い
+374,young,若い
+375,abroad,海外で/外国で
+376,according to～,～によれば
+377,again,もう一度/再び
+378,～ago,～前に
+379,ahead,前へ
+380,all,すべて/(形)すべての
+381,almost,ほとんど
+382,alone,一人で
+383,already,もう/すでに
+384,also,～もまた/そのうえ
+385,always,いつも
+386,anyway,とにかく
+387,anywhere,(否定文で)どこにも～ない
+388,away,はなれて/なくなって
+389,back,もどって/後ろに
+390,carefully,注意深く
+391,certainly,確かな/承知しました
+392,clearly,はっきりと
+393,directly,直接に
+394,down,下へ
+395,easily,簡単に/容易に
+396,effectively,効果的に
+397,especially,特に
+398,even,～でさえ
+399,eventually,最後には/ようやく
+400,everywhere,どこでも
+401,far,遠くに
+402,fast,速く
+403,forever,永久に
+404,globally,世界的に
+405,half,半分だけ
+406,harmoniously,調和して
+407,however,しかしながら
+408,here,ここで/ここに
+409,inside,内側に
+410,just,ちょうど/ただ～だけ
+411,later,あとで
+412,left,左に
+413,locally,その場所で
+414,loudly,大声で
+415,maybe,たぶん/もしかすると
+416,never,決して～ない
+417,off,休んで
+418,often,よく/しばしば
+419,once,一度/以前は
+420,only,ただ～だけ
+421,originally,もともとは
+422,out,外へ/外出して
+423,outside,外で
+424,perhaps,たぶん(確率30%)
+425,probably,たぶん(確率80%)
+426,quickly,すばやく
+427,really,本当に
+428,slowly,ゆっくりと
+429,so,とても/そのように/だが
+430,someday,いつか
+431,sometime,いつか/そのうち
+432,sometimes,ときどき
+433,soon,すぐに/間もなく
+434,still,まだ/今でも
+435,straight,まっすぐに
+436,suddenly,突然
+437,then,そのとき/それから
+438,there,そこで/そこに
+439,together,いっしょに
+440,too,～も/あまりにも～
+441,twice,二度/二倍
+442,up,上へ
+443,usually,たいてい/ふつうは
+444,very,とても/(否)あまり～ない
+445,yet,(否)まだ(疑)もう
+446,about,～について/約～
+447,across,～を横切って
+448,after,～の後で
+449,against,～に反対して
+450,along,～に沿って
+451,among,～の間で
+452,around,～のまわりで
+453,as,～として/～につれて
+454,as ～ as A,Aと同じくらい～
+455,at,(時刻/場所)～に/～で
+456,because ～,なぜならば～なので
+457,before,～の前に/以前
+458,behind,～の後ろ側に
+459,beside,～のそばに
+460,between A and B,AとBの間で
+461,both A and B,AとBの両方
+462,by ～,～のそばで/～までに
+463,during ～,～の期間ずっと
+464,for ～,～のために/～の間
+465,from ～,～から
+466,if ～,もし～ならば
+467,in ～,～の中
+468,into ～,～の中に
+469,like ～,～のように
+470,near ～,～の近くで
+471,of ～,～の
+472,on ～,～の上/(日)～に
+473,or ～,または～
+474,over ～,～をこえて/～至る所
+475,than ～,～よりも
+476,that ～,～だと
+477,through ～,～を通って/～によって
+478,till ～/until ～,～までずっと
+479,to ～,～へ/～まで
+480,under ～,～の下
+481,with ～,～といっしょに/～を使って
+482,without ～,～なしで/～しないで
+483,when ～,～の時
+484,,すべての曜日
+485,,すべての月名
+486,,すべての季節
+487,spring,春/ばね/温泉
+488,,0~99
+489,hundred,100
+490,thousand,"1,000"
+491,ten thousand,"10,000"
+492,"~dollars(s), $",~ドル
+493,first / second,1番目/最初/2番目
+494,third / fourth,3番目/4番目
+495,fifth / eighth,5番目/8番目
+496,ninth / twelfth,9番目/12番目
+497,twentieth/thirtieth,20番目/30番目
+498,child / children,子ども 単数/複数
+499,man / men,男性 単数/複数
+500,woman / women,女性 単数/複数
+501,tooth / teeth,歯 単数/複数
+502,foot / feet,足 単数/複数
+503,knife / knives,ナイフ 単数/複数
+504,leaf / leaves,葉 単数/複数
+505,fish / fish,魚 単数/複数
+506,sheep / sheep,羊 単数/複数
+507,Japanese / Japanese,日本人 単数/複数
+508,nursery school,保育園
+509,kindergarten,幼稚園
+510,elementary school,小学校
+511,junior high school,中学校
+512,high school,高校
+513,college,(単科)大学/専門学校
+514,university,総合大学
+515,activity,活動
+516,actor,俳優
+517,age,年令/時代
+518,anyone,(否)だれも～ない/(疑)だれか
+519,anything,(否)何も～ない
+520,area,区域
+521,art,芸術/美術
+522,article,記事
+523,athlete,運動選手
+524,aunt / uncle,おば/おじ
+525,bathroom,お風呂場/トイレ
+526,birthday,誕生日
+527,blossom,(実なる木の)花
+528,bottle,びん
+529,bridge,橋
+530,care,世話
+531,case,場合
+532,center,中心
+533,century,世紀
+534,childhood,子どもの頃
+535,chorus,コーラス
+536,church,教会
+537,clerk/salesclerk,店員
+538,clothes,衣服
+539,community,共同体
+540,company,会社
+541,conference,会議
+542,contact,接触
+543,content,中身/内容
+544,convenience,便利
+545,corner,角/曲がり角
+546,country,国/いなか
+547,cousin,いとこ
+548,crowd,群集/人ごみ
+549,culture,文化
+550,custom,習慣
+551,customer,客
+552,daughter / son,娘/息子
+553,dentist,歯医者
+554,detail,詳細
+555,dictionary,辞書
+556,dinosaur,恐竜
+557,dream,夢
+558,earth,地球
+559,earthquake,地震
+560,effort,努力
+561,electricity,電気
+562,engineer,技術者/エンジニア
+563,east / west,東/西
+564,south / north,南/北
+565,environment,環境
+566,event,行事
+567,everyone,みなさん
+568,everything,なんでも/すべてのこと
+569,experience,経験
+570,factory,工場
+571,feature,特徴/特色
+572,feeling,気持ち
+573,festival,祭り
+574,fever,熱
+575,field,野原/畑
+576,fireworks,花火
+577,floor,床/～階
+578,forest,森
+579,fossil,化石
+580,freedom,自由
+581,fridge,冷蔵庫
+582,front,前/正面
+583,fun,楽しいこと
+584,future,未来/将来
+585,gift,贈り物
+586,goods,物品
+587,grandma/grandpa,おばあちゃん/おじいちゃん
+588,Mom / Dad,ママ/パパ
+589,greeting,あいさつ
+590,group,グループ
+591,guest,客
+592,guide,ガイド/案内人
+593,headache,頭痛
+594,heart,心
+595,herself,彼女自身
+596,himself,彼自身
+597,history,歴史
+598,hobby,趣味
+599,hole,穴
+600,holiday,休日
+601,human,人間
+602,husband,夫
+603,information,情報
+604,invention,発明
+605,island,島
+606,job,仕事
+607,kindness,親切
+608,knowledge,知識
+609,lake,湖
+610,land,土地
+611,language,言語
+612,lawyer,弁護士
+613,line,行/列/線
+614,ma'am,(女性に対して)お客様
+615,market,市場
+616,mayor,市長
+617,meaning,意味
+618,medicine,薬
+619,memory,思い出
+620,middle,真ん中
+621,museum,博物館
+622,musician,音楽家
+623,myself,私自身
+624,nature,自然
+625,neighbor,隣人
+626,neighborhood,近所
+627,no,一つも～ない
+628,note,メモ
+629,nothing,何もない
+630,number,数
+631,office,事務所
+632,parent/parents,親/両親
+633,party,パーティー
+634,passenger,乗客
+635,past,過去
+636,people,人々
+637,performance,パフォーマンス
+638,period,(授業の)～時間
+639,person,個人
+640,photo(photograph),写真
+641,photographer,写真家
+642,piece,部品
+643,planet,惑星
+644,plant,植物
+645,pleasure,楽しみ
+646,police officer,おまわりさん
+647,pond,池
+648,present,プレゼント/現在
+649,presentation,発表
+650,price,値段
+651,problem,問題
+652,product,製品
+653,professor,教授
+654,program / show,番組 / ショー
+655,progress,進歩/発達
+656,question,質問/問題
+657,reason,理由
+658,relation,関係
+659,reservation,予約
+660,rest,休息
+661,restaurant,レストラン
+662,result,結果
+663,report,レポート/報告書
+664,scene,光景/シーン
+665,sentence,文
+666,shape,形
+667,shrine,神社
+668,sightseeing,観光
+669,skill,技術
+670,something,何か～のもの
+671,space,宇宙
+672,stadium,競技場/スタジアム
+673,stomachache,腹痛
+674,standard,基準
+675,stairs,階段
+676,street,通り
+677,strength,強さ/長所
+678,subway/(英)tube,(米)subway/(英)tube
+679,surprise,驚くべきこと
+680,symbol,シンボル/記号
+681,technology,科学技術
+682,temple,お寺
+683,theater,映画館/劇場
+684,thing,もの/こと
+685,tonight,今夜
+686,tomorrow,明日
+687,toothache,歯痛
+688,topic,話題
+689,towel,タオル
+690,tower,タワー
+691,traffic,交通
+692,trash,ごみ
+693,trouble,困難
+694,uniform,制服/ユニフォーム
+695,vacation,休暇
+696,vegetable,野菜
+697,vending machine,自動販売機
+698,view,景色/ながめ
+699,village,村
+700,voice,声
+701,volunteer,ボランティア
+702,wallet,さいふ
+703,way,方法/道
+704,weather,天気
+705,weekend / weekday,週末/平日
+706,wheelchair,車いす
+707,wife,妻
+708,wisdom,知恵
+709,yourself,あなた自身の
+710,Why?,なぜ?
+711,How often?,何回?
+712,~hour(s),(単位)～時間
+713,~minute(s),(単位)～分
+714,~second(s),(単位)～秒
+715,a lot of～,たくさんの～
+716,a kind of～,～の種類
+717,a cup of～,一杯の(温かい飲み物)
+718,a glass of～,一杯の(冷たい飲み物)
+719,a pair of～,一対の～
+720,a piece of～,一枚の～/一切れの～
+721,a part of～,～の一部
+722,again and again,何度も何度も
+723,be about to～,今にも～しようとしている
+724,be absent from～,～を休む
+725,be afraid of～,～を恐れる
+726,be based on～,～に基づいている
+727,be careful of～,～に気をつける
+728,be covered with～,～で覆われている
+729,be different from～,～と異なる
+730,be famous for～,～で有名です
+731,be fond of～,～が好きである
+732,be full of～,～でいっぱいでる
+733,be good at～,～が得意です
+734,be interested in～,～に興味がある
+735,be known as～,～として知られている
+736,be known to～,～に知られている
+737,be late for～,～に遅れる
+738,be made from～(原料),～でできている
+739,be made of～(材料),～でできている
+740,be pleased with～,～を気に入る
+741,be popular with～,～で人気がある
+742,be ready for～,～の準備ができている
+743,be surprised at～,～に驚く
+744,be in～club,～クラブに入っている
+745,be on～team,～チームに入っている
+746,be over,終わる
+747,There is/are～,～がある/いる
+748,agree with～,～に賛成する
+749,arrive at(in)～,～に到着する
+750,get to～,～に到着する
+751,bring back,思い出させる
+752,call～back,～に折り返し電話する
+753,come back,もどる
+754,come in,中に入る
+755,come to～,～するようになる
+756,come true,実現する
+757,get on↔get off,乗る↔降りる
+758,go～ing,～しに行く
+759,go to bed↔get up,寝る↔起きる
+760,go back,もどる/帰る
+761,go home,帰宅する(帰っていく)
+762,come home,帰宅する(帰ってくる)
+763,get home,帰宅する(家に着く)
+764,go for a walk,散歩に行く
+765,take a walk,散歩する
+766,give up,あきらめる
+767,hear from～,～から便りがある
+768,write to～,～に手紙を書く
+769,leave(A) for～,～へ向けて(A)を出発する
+770,look for～,～を探す
+771,look like～,～のように見える
+772,look forward to～,～を楽しみにする
+773,make a mistake,まちがいをする
+774,run away,逃げる
+775,show(A) around～,(人)に～を案内する
+776,speak to～,～に話しかける
+777,put on～,～を着る/身につける
+778,take off～,～を脱ぐ
+779,take A to～,Aを～に持って行く/連れていく
+780,take a bath(shower),ふろ(シャワー)に入る
+781,take care of～,～の世話をする
+782,take part in～,～に参加する
+783,turn on～↔turn off～,電源を入れる↔切る
+784,want to～,～したい
+785,would like to～,～がほしい
+786,would like～,〃
+787,Would you like～?,～はいかがですか。
+788,Why don't we～?,～するのはどうですか
+789,Why don't you～?,～してはいかがですか
+790,after all,とうとう/ついに
+791,at last,ついに
+792,after a while,しばらくして
+793,all day long,一日中
+794,all night long,ひと晩中
+795,～and so on,～など
+796,at once,すぐに
+797,at the same time,同時に
+798,for a while,しばらくの間
+799,for the first time,はじめて
+800,because of～,～のために
+801,by the way,ところで
+802,each other,お互いに
+803,for example,たとえば
+804,in front of～,～の前に
+805,in order to～,～するために
+806,in the old days,かつては(昔は)
+807,in line,一列に並んで
+808,little by little,少しずつ
+809,more than～,～以上
+810,next to～,～の隣に
+811,not～at all,少しも～でない
+812,on foot,歩いて
+813,on TV(the radio),テレビ(ラジオ)で
+814,one day,ある日
+815,over there,向こうで
+816,right now(away),今すぐ
+817,some day,いつか
+818,these days,このごろ
+819,thank you for～,～にありがとう
+820,It's time to～,～する時間です
+821,No problem.,問題なしです/大丈夫
+822,Just(Wait) a minute.,少し待ってください
+823,once a day,(例)一日に一回
+824,twice a week,(例)一週間に二回
+825,three times a month,(例)一か月に三回
+826,global warming,地球温暖化
+827,world heritage site,世界遺産
