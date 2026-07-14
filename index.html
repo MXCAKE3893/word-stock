@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="words.csvから出題する英単語テスト">
+  <title>Word Stock | 単語テスト</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Word Stock ホーム">
+      <span class="brand-mark">W</span>
+      <span><strong>Word Stock</strong><small>ENGLISH PRACTICE</small></span>
+    </a>
+    <div class="word-count"><span id="total-words">---</span> words loaded</div>
+  </header>
+
+  <main>
+    <section id="setup-screen" class="screen setup-screen">
+      <div class="intro">
+        <p class="eyebrow">DAILY WORD TRAINING</p>
+        <h1>覚えた数だけ、<br><em>景色が変わる。</em></h1>
+        <p class="lead">全827語から、いまの自分にちょうどいいテストを。</p>
+        <div class="daily-record">
+          <span class="record-label">OVERALL ACCURACY</span>
+          <strong id="best-score">--</strong>
+          <span id="best-detail">まだ回答記録がありません</span>
+        </div>
+        <button id="open-mistakes" class="mistake-link" type="button">
+          <span>間違えた問題一覧 <b id="history-miss-count">0</b></span><i>→</i>
+        </button>
+      </div>
+
+      <form id="setup-form" class="setup-card">
+        <div class="card-number">SETUP / 01</div>
+        <fieldset>
+          <legend>学習モード</legend>
+          <div class="segmented-control mode-control">
+            <label><input type="radio" name="mode" value="choice" checked><span>4択モード</span></label>
+            <label><input type="radio" name="mode" value="test"><span>テストモード</span></label>
+          </div>
+          <p id="mode-description" class="field-note">選択肢から答えて、その場で正解を確認します。</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>出題方向</legend>
+          <div class="segmented-control">
+            <label><input type="radio" name="direction" value="en-ja" checked><span>英語 <b>→</b> 日本語</span></label>
+            <label><input type="radio" name="direction" value="ja-en"><span>日本語 <b>→</b> 英語</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>出題範囲 <output id="range-output">1 - 827</output></legend>
+          <div class="range-fields">
+            <label><span>FROM</span><input id="range-from" type="number" min="1" value="1" inputmode="numeric"></label>
+            <i></i>
+            <label><span>TO</span><input id="range-to" type="number" min="1" value="827" inputmode="numeric"></label>
+          </div>
+          <div class="range-presets" aria-label="範囲プリセット">
+            <button type="button" data-range="1,219">動詞</button>
+            <button type="button" data-range="219,374">形容詞</button>
+            <button type="button" data-range="375,483">副詞・前置詞</button>
+            <button type="button" data-range="508,709">名詞</button>
+            <button type="button" data-range="710,827">表現</button>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>問題数</legend>
+          <div class="count-options">
+            <label><input type="radio" name="count" value="10" checked><span>10</span></label>
+            <label><input type="radio" name="count" value="20"><span>20</span></label>
+            <label><input type="radio" name="count" value="50"><span>50</span></label>
+            <label><input type="radio" name="count" value="all"><span>ALL</span></label>
+          </div>
+        </fieldset>
+
+        <p id="load-error" class="load-error" role="alert" hidden></p>
+        <button id="start-button" class="primary-button" type="submit" disabled>
+          <span>テストをはじめる</span><span class="button-arrow">↗</span>
+        </button>
+      </form>
+    </section>
+
+    <section id="mistakes-screen" class="screen mistakes-screen" hidden>
+      <div class="mistakes-heading">
+        <button id="close-mistakes" class="text-button" type="button">← 設定に戻る</button>
+        <p class="eyebrow">MISTAKE ARCHIVE</p>
+        <h1>間違えた問題。</h1>
+        <p>復習する単語を選んで、もう一度テストできます。</p>
+      </div>
+
+      <div class="mistake-toolbar">
+        <div>
+          <span class="toolbar-label">STATUS</span>
+          <div class="filter-buttons" id="status-filters">
+            <button type="button" class="active" data-status="all">すべて</button>
+            <button type="button" data-status="review">要復習</button>
+            <button type="button" data-status="mastered">克服済み</button>
+            <button type="button" data-status="flagged">要注意</button>
+          </div>
+        </div>
+        <div>
+          <span class="toolbar-label">MISTAKES</span>
+          <div class="filter-buttons" id="count-filters"></div>
+        </div>
+        <div class="bulk-buttons">
+          <button id="select-visible" type="button">表示中を全選択</button>
+          <button id="clear-visible" type="button">表示中を解除</button>
+        </div>
+      </div>
+
+      <div class="mistake-table-wrap">
+        <table class="mistake-table">
+          <thead>
+            <tr>
+              <th class="check-column"><input id="select-all-visible" type="checkbox" aria-label="表示中の問題をすべて選択"></th>
+              <th>ID</th>
+              <th>英単語</th>
+              <th>日本語</th>
+              <th>間違い</th>
+              <th>正答率</th>
+              <th>状態</th>
+              <th>タグ</th>
+            </tr>
+          </thead>
+          <tbody id="mistake-table-body"></tbody>
+        </table>
+        <p id="mistake-empty" class="mistake-empty" hidden>条件に合う問題はありません。</p>
+      </div>
+
+      <div class="mistake-action-bar">
+        <div><strong id="selected-mistake-count">0</strong><span>問を選択中</span></div>
+        <p id="retest-settings">4択モード / 英語 → 日本語</p>
+        <button id="start-mistake-test" class="primary-button" type="button" disabled>
+          <span>選択した問題でテスト</span><span class="button-arrow">↗</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="quiz-screen" class="screen quiz-screen" hidden>
+      <div class="quiz-topline">
+        <button id="quit-button" class="text-button" type="button">← 設定に戻る</button>
+        <span id="quiz-direction" class="direction-label">EN → JA</span>
+        <span id="progress-label">01 / 10</span>
+      </div>
+      <div class="progress-track"><span id="progress-bar"></span></div>
+
+      <article class="question-card">
+        <span id="question-id" class="question-id">WORD 001</span>
+        <p class="question-hint">次の意味を選んでください</p>
+        <h2 id="question-text">be / am / is / are</h2>
+        <div id="test-answer" class="test-answer" hidden>
+          <span>ANSWER</span>
+          <strong id="test-answer-text"></strong>
+        </div>
+        <div id="answer-options" class="answer-options"></div>
+        <div id="answer-feedback" class="answer-feedback" aria-live="polite"></div>
+        <div id="test-navigation" class="test-navigation" hidden>
+          <button id="previous-question" class="secondary-button" type="button">← 前の問題</button>
+          <button id="next-test-question" class="primary-button" type="button"><span>次の問題</span><span class="button-arrow">→</span></button>
+        </div>
+        <div id="review-actions" class="review-actions" hidden>
+          <button id="mark-wrong" type="button"><span>2</span> 不正解</button>
+          <button id="mark-correct" type="button"><span>1</span> 正解</button>
+        </div>
+        <div id="review-correction" class="review-correction" hidden>
+          <button id="previous-review" class="text-button" type="button">← 前の採点へ戻る</button>
+          <button id="finish-review" class="next-button" type="button" hidden>採点を完了する →</button>
+        </div>
+      </article>
+      <p id="keyboard-hint" class="keyboard-hint"><kbd>1</kbd>–<kbd>4</kbd> で選択　<kbd>Enter</kbd> で次へ</p>
+    </section>
+
+    <section id="result-screen" class="screen result-screen" hidden>
+      <div class="result-heading">
+        <p class="eyebrow">SESSION COMPLETE</p>
+        <h1>今日の成果。</h1>
+      </div>
+      <div class="score-card">
+        <div class="score-ring" id="score-ring">
+          <div><strong id="score-percent">0</strong><span>%</span></div>
+        </div>
+        <div class="score-copy">
+          <p id="score-message">おつかれさまでした</p>
+          <strong><span id="correct-count">0</span> / <span id="question-count">10</span></strong>
+          <span>正解</span>
+        </div>
+      </div>
+      <div id="review-section" class="review-section">
+        <div class="review-title"><h2>間違えた単語</h2><span id="miss-count">0 WORDS</span></div>
+        <div id="review-list" class="review-list"></div>
+      </div>
+      <div class="result-actions">
+        <button id="retry-button" class="primary-button" type="button"><span>同じ条件でもう一度</span><span class="button-arrow">↗</span></button>
+        <button id="back-button" class="secondary-button" type="button">設定を変える</button>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>WORD STOCK</span><span>WORDS.CSV / 2026</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
