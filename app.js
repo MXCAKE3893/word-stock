@@ -64,6 +64,8 @@ const elements = {
 
 let words = [];
 let session = null;
+const promptsByDirection = { "en-ja": new Map(), "ja-en": new Map() };
+const answersByDirection = { "en-ja": new Map(), "ja-en": new Map() };
 let selectedMistakeIds = new Set();
 let mistakeStatusFilter = "all";
 let mistakeCountFilter = null;
@@ -127,6 +129,35 @@ function parseWordsCsv(csv) {
   }
 
   return parsed;
+}
+
+function indexQuestionData() {
+  promptsByDirection["en-ja"].clear();
+  promptsByDirection["ja-en"].clear();
+  answersByDirection["en-ja"].clear();
+  answersByDirection["ja-en"].clear();
+
+  const englishByJapanese = new Map();
+  words.forEach((word) => {
+    if (!englishByJapanese.has(word.japanese)) englishByJapanese.set(word.japanese, new Set());
+    englishByJapanese.get(word.japanese).add(word.english);
+  });
+
+  words.forEach((word) => {
+    const initial = word.english.match(/[a-z]/i)?.[0].toLowerCase();
+    const japanesePrompt = englishByJapanese.get(word.japanese).size > 1 && initial
+      ? `${initial} から始まる「${word.japanese}」`
+      : word.japanese;
+    const prompts = { "en-ja": word.english, "ja-en": japanesePrompt };
+    const answers = { "en-ja": word.japanese, "ja-en": word.english };
+
+    Object.keys(prompts).forEach((direction) => {
+      const prompt = prompts[direction];
+      promptsByDirection[direction].set(word.id, prompt);
+      if (!answersByDirection[direction].has(prompt)) answersByDirection[direction].set(prompt, new Set());
+      answersByDirection[direction].get(prompt).add(answers[direction]);
+    });
+  });
 }
 
 function shuffle(items) {
@@ -420,17 +451,25 @@ function getAnswer(word) {
 }
 
 function getPrompt(word) {
-  return session.settings.direction === "en-ja" ? word.english : word.japanese;
+  return promptsByDirection[session.settings.direction].get(word.id);
+}
+
+function getAcceptedAnswers(question) {
+  return [...answersByDirection[session.settings.direction].get(getPrompt(question))];
+}
+
+function getAnswerLabel(question) {
+  return getAcceptedAnswers(question).join(" / ");
 }
 
 function buildOptions(question) {
-  const correctAnswer = getAnswer(question);
+  const correctAnswer = getAnswerLabel(question);
   const used = new Set([correctAnswer]);
   const distractors = [];
-  const candidates = shuffle(session.pool.length >= 4 ? session.pool : words);
+  const candidates = shuffle([...session.pool, ...words]);
 
   for (const candidate of candidates) {
-    const answer = getAnswer(candidate);
+    const answer = getAnswerLabel(candidate);
     if (!used.has(answer)) {
       used.add(answer);
       distractors.push(answer);
@@ -523,7 +562,7 @@ function renderTestQuestion() {
   elements.questionHint.hidden = false;
   elements.questionHint.textContent = "紙に書いた答えと見比べてください";
   elements.testAnswer.hidden = false;
-  elements.testAnswerText.textContent = getAnswer(question);
+  elements.testAnswerText.textContent = getAnswerLabel(question);
   elements.testNavigation.hidden = true;
   elements.reviewActions.hidden = false;
   elements.reviewCorrection.hidden = false;
@@ -574,7 +613,7 @@ function answerQuestion(selectedButton) {
   if (session.answered) return;
   session.answered = true;
   const question = session.questions[session.index];
-  const correctAnswer = getAnswer(question);
+  const correctAnswer = getAnswerLabel(question);
   const isCorrect = selectedButton.dataset.answer === correctAnswer;
   session.results[session.index] = isCorrect;
 
@@ -760,6 +799,7 @@ async function initialize() {
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     words = parseWordsCsv(await response.text());
     if (!words.length) throw new Error("No words parsed");
+    indexQuestionData();
 
     const maxId = words.at(-1).id;
     elements.total.textContent = words.length;

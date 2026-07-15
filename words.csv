@@ -219,23 +219,23 @@ ID,単語,日本語
 218,Let's～.,//(書きかえ)
 219,good,良い
 220,well,上手に/え～と/(名)丼
-221,better - best,比較級ー最上級
+221,better - best,good / well の比較級・最上級
 222,bad,悪い
 223,ill,病気の
-224,worse - worst,比較級ー最上級
+224,worse - worst,bad / ill の比較級・最上級
 225,many,多数の(数えられる物)
 226,much,多量の(数えられない物)
-227,more - most,比較級ー最上級
+227,more - most,many / much の比較級・最上級
 228,tall,背が高い
-229,taller-tallest,比較級ー最上級
+229,taller-tallest,tall の比較級・最上級
 230,large,大きい/広い
-231,larger-largest,比較級ー最上級
+231,larger-largest,large の比較級・最上級
 232,easy,簡単な
-233,easier-easiest,比較級ー最上級
+233,easier-easiest,easy の比較級・最上級
 234,big,大きい
-235,bigger-biggest,比較級ー最上級
+235,bigger-biggest,big の比較級・最上級
 236,useful,役に立つ
-237,more useful - most useful,比較級ー最上級 (3音節以上の形容詞)
+237,more useful - most useful,useful の比較級・最上級 (3音節以上の形容詞)
 238,active,活発な/活動的な
 239,alive,生きている
 240,amazing,驚くべき
@@ -736,8 +736,8 @@ ID,単語,日本語
 735,be known as～,～として知られている
 736,be known to～,～に知られている
 737,be late for～,～に遅れる
-738,be made from～(原料),～でできている
-739,be made of～(材料),～でできている
+738,be made from～(原料),～でできている(原料)
+739,be made of～(材料),～でできている(材料)
 740,be pleased with～,～を気に入る
 741,be popular with～,～で人気がある
 742,be ready for～,～の準備ができている
@@ -783,8 +783,8 @@ ID,単語,日本語
 782,take part in～,～に参加する
 783,turn on～↔turn off～,電源を入れる↔切る
 784,want to～,～したい
-785,would like to～,～がほしい
-786,would like～,〃
+785,would like to～,～したい(丁寧)
+786,would like～,～がほしい(丁寧)
 787,Would you like～?,～はいかがですか。
 788,Why don't we～?,～するのはどうですか
 789,Why don't you～?,～してはいかがですか
