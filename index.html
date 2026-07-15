@@ -35,9 +35,11 @@
           <strong id="best-score">--</strong>
           <span id="best-detail">まだ回答記録がありません</span>
         </div>
-        <button id="open-mistakes" class="mistake-link" type="button">
+        <button id="open-mistakes" class="mistake-link" type="button" disabled>
           <span>復習する問題一覧 <b id="history-miss-count">0</b></span><i>→</i>
         </button>
+        <p id="legacy-data-notice" class="mode-description" hidden></p>
+        <p id="storage-notice" class="mode-description" hidden></p>
       </div>
 
       <form id="setup-form" class="setup-card">
@@ -116,7 +118,6 @@
             <button type="button" class="active" data-direction="all">すべて</button>
             <button type="button" data-direction="en-ja">EN → JA</button>
             <button type="button" data-direction="ja-en">JA → EN</button>
-            <button type="button" data-direction="legacy">旧データ</button>
           </div>
         </div>
         <div>
@@ -172,7 +173,8 @@
       <article class="question-card">
         <div class="question-meta">
           <span id="question-id" class="question-id">WORD 001</span>
-          <button id="question-flag" class="flag-button question-flag" type="button" aria-pressed="false" hidden>要注意</button>
+          <button id="question-flag" class="flag-button question-flag" type="button" aria-pressed="false"
+            hidden>要注意</button>
         </div>
         <p class="question-hint">次の意味を選んでください</p>
         <h2 id="question-text">be / am / is / are</h2>

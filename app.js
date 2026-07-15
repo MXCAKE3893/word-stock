@@ -19,6 +19,8 @@ const elements = {
   bestDetail: document.querySelector("#best-detail"),
   historyMissCount: document.querySelector("#history-miss-count"),
   openMistakes: document.querySelector("#open-mistakes"),
+  legacyDataNotice: document.querySelector("#legacy-data-notice"),
+  storageNotice: document.querySelector("#storage-notice"),
   closeMistakes: document.querySelector("#close-mistakes"),
   statusFilters: document.querySelector("#status-filters"),
   directionFilters: document.querySelector("#direction-filters"),
@@ -71,14 +73,19 @@ const elements = {
 
 let words = [];
 let session = null;
+let datasetVersion = "";
+let storedData = { schemaVersion: 2, statsByWordKey: {}, sessions: [] };
+let storageWritable = true;
+let storageErrorMessage = "";
 const promptsByDirection = { "en-ja": new Map(), "ja-en": new Map() };
 const answersByDirection = { "en-ja": new Map(), "ja-en": new Map() };
-let selectedMistakeIds = new Set();
+let selectedMistakeKeys = new Set();
 let mistakeStatusFilter = "all";
 let mistakeCountFilter = null;
 let mistakeDirectionFilter = "all";
 let mistakeTestFilter = "all";
-const TEST_HISTORY_KEY = "word-stock-test-history-v1";
+const STORAGE_KEY = "word-stock-data-v2";
+const STORAGE_SCHEMA_VERSION = 2;
 
 function parseCsvRows(csv) {
   const rows = [];
@@ -141,19 +148,45 @@ function parseWordsCsv(csv) {
   return parsed;
 }
 
-function indexQuestionData() {
+async function sha256Hex(value) {
+  const bytes = typeof value === "string" ? new TextEncoder().encode(value) : value;
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
+}
+
+async function addWordKeys(parsedWords) {
+  return Promise.all(parsedWords.map(async (word) => ({
+    ...word,
+    datasetVersion,
+    wordKey: `ws1:${await sha256Hex(`${word.id}\0${word.english}\0${word.japanese}`)}`,
+  })));
+}
+
+function createWordSnapshot(word) {
+  return {
+    wordKey: word.wordKey,
+    datasetVersion: word.datasetVersion || datasetVersion,
+    id: word.id,
+    english: word.english,
+    japanese: word.japanese,
+  };
+}
+
+function indexQuestionData(indexedWords = words) {
   promptsByDirection["en-ja"].clear();
   promptsByDirection["ja-en"].clear();
   answersByDirection["en-ja"].clear();
   answersByDirection["ja-en"].clear();
 
+  const uniqueWords = [...new Map(indexedWords.map((word) => [word.wordKey, word])).values()];
+
   const englishByJapanese = new Map();
-  words.forEach((word) => {
+  uniqueWords.forEach((word) => {
     if (!englishByJapanese.has(word.japanese)) englishByJapanese.set(word.japanese, new Set());
     englishByJapanese.get(word.japanese).add(word.english);
   });
 
-  words.forEach((word) => {
+  uniqueWords.forEach((word) => {
     const initial = word.english.match(/[a-z]/i)?.[0].toLowerCase();
     const japanesePrompt = englishByJapanese.get(word.japanese).size > 1 && initial
       ? `${initial} から始まる「${word.japanese}」`
@@ -163,7 +196,7 @@ function indexQuestionData() {
 
     Object.keys(prompts).forEach((direction) => {
       const prompt = prompts[direction];
-      promptsByDirection[direction].set(word.id, prompt);
+      promptsByDirection[direction].set(word.wordKey, prompt);
       if (!answersByDirection[direction].has(prompt)) answersByDirection[direction].set(prompt, new Set());
       answersByDirection[direction].get(prompt).add(answers[direction]);
     });
@@ -197,63 +230,120 @@ function updateRange() {
   elements.rangeOutput.value = `${from} - ${to}`;
 }
 
-function getWordStats() {
+function createEmptyStoredData() {
+  return { schemaVersion: STORAGE_SCHEMA_VERSION, datasetVersion, statsByWordKey: {}, sessions: [] };
+}
+
+function isWordSnapshot(word) {
+  return /^ws1:[0-9a-f]{64}$/.test(word?.wordKey)
+    && /^sha256:[0-9a-f]{64}$/.test(word.datasetVersion)
+    && Number.isInteger(word.id)
+    && typeof word.english === "string"
+    && typeof word.japanese === "string";
+}
+
+function isStoredDataValid(data) {
+  if (data?.schemaVersion !== STORAGE_SCHEMA_VERSION
+    || !/^sha256:[0-9a-f]{64}$/.test(data.datasetVersion)
+    || !data.statsByWordKey
+    || typeof data.statsByWordKey !== "object"
+    || Array.isArray(data.statsByWordKey)
+    || !Array.isArray(data.sessions)) return false;
+
+  const validStats = Object.entries(data.statsByWordKey).every(([wordKey, stats]) => wordKey === stats?.word?.wordKey
+    && isWordSnapshot(stats.word)
+    && Number.isInteger(stats.correct)
+    && stats.correct >= 0
+    && Number.isInteger(stats.wrong)
+    && stats.wrong >= 0
+    && (stats.needsReview === undefined || typeof stats.needsReview === "boolean")
+    && (stats.flagged === undefined || typeof stats.flagged === "boolean"));
+  const sessionIds = new Set();
+  const validSessions = data.sessions.every((test) => typeof test?.id === "string"
+    && test.id.length > 0
+    && !sessionIds.has(test.id)
+    && Boolean(sessionIds.add(test.id))
+    && typeof test.completedAt === "string"
+    && Number.isFinite(Date.parse(test.completedAt))
+    && /^sha256:[0-9a-f]{64}$/.test(test.datasetVersion)
+    && ["en-ja", "ja-en"].includes(test.direction)
+    && ["choice", "test"].includes(test.mode)
+    && ["standard", "mistakes"].includes(test.source)
+    && Number.isInteger(test.questionCount)
+    && test.questionCount >= 0
+    && ((test.source === "mistakes" && test.from === null && test.to === null)
+      || (test.source === "standard" && Number.isInteger(test.from) && Number.isInteger(test.to) && test.from <= test.to))
+    && Array.isArray(test.wrongWords)
+    && test.wrongWords.length <= test.questionCount
+    && test.wrongWords.every(isWordSnapshot));
+  return validStats && validSessions;
+}
+
+function loadStoredData() {
   try {
-    return JSON.parse(localStorage.getItem("word-stock-stats")) || {};
+    const serialized = localStorage.getItem(STORAGE_KEY);
+    if (!serialized) return createEmptyStoredData();
+    const data = JSON.parse(serialized);
+    if (!isStoredDataValid(data)) {
+      storageWritable = false;
+      storageErrorMessage = "保存済みの学習履歴を確認できないため、この画面では新しい履歴を保存しません。既存データは変更されていません。";
+      return createEmptyStoredData();
+    }
+    return data;
   } catch {
-    return {};
+    storageWritable = false;
+    storageErrorMessage = "ブラウザの保存領域を利用できないため、学習履歴は保存されません。";
+    return createEmptyStoredData();
   }
+}
+
+function hasLegacyStoredData() {
+  try {
+    return localStorage.getItem("word-stock-stats") !== null
+      || localStorage.getItem("word-stock-test-history-v1") !== null;
+  } catch {
+    return false;
+  }
+}
+
+function showStorageWarning(message) {
+  storageErrorMessage = message;
+  elements.storageNotice.hidden = false;
+  elements.storageNotice.textContent = message;
+}
+
+function persistStoredData(nextData) {
+  if (!storageWritable) return false;
+  const data = { ...nextData, datasetVersion };
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    storedData = data;
+    return true;
+  } catch {
+    showStorageWarning("ブラウザの保存容量または設定により、今回の学習履歴を保存できませんでした。");
+    return false;
+  }
+}
+
+function getWordStats() {
+  return storedData.statsByWordKey;
 }
 
 function getTestHistory() {
-  const emptyHistory = { version: 1, sessions: [] };
-  try {
-    const stored = localStorage.getItem(TEST_HISTORY_KEY);
-    if (!stored) return emptyHistory;
-    const history = JSON.parse(stored);
-    const valid = history?.version === 1
-      && Array.isArray(history.sessions)
-      && history.sessions.every((test) => typeof test?.id === "string"
-        && typeof test.completedAt === "string"
-        && ["en-ja", "ja-en"].includes(test.direction)
-        && ["choice", "test"].includes(test.mode)
-        && ["standard", "mistakes"].includes(test.source)
-        && Number.isInteger(test.questionCount)
-        && Array.isArray(test.wrongWordIds)
-        && test.wrongWordIds.every(Number.isInteger));
-    if (!valid) return null;
-    return history;
-  } catch {
-    return null;
-  }
-}
-
-function getRecordedWrongCount(wordId, sessions) {
-  return sessions.reduce((count, test) => count + (test.wrongWordIds?.includes(wordId) ? 1 : 0), 0);
-}
-
-function hasLegacyMistake(wordId, wordStats, sessions) {
-  return wordStats.wrong > getRecordedWrongCount(wordId, sessions);
+  return { version: STORAGE_SCHEMA_VERSION, sessions: storedData.sessions };
 }
 
 function matchesMistakeHistory(word, wordStats, sessions) {
-  const legacy = hasLegacyMistake(word.id, wordStats, sessions);
-
-  if (mistakeTestFilter === "legacy") return mistakeDirectionFilter === "all" || mistakeDirectionFilter === "legacy"
-    ? legacy
-    : false;
-
-  if (mistakeDirectionFilter === "legacy") return mistakeTestFilter === "all" && legacy;
-
   if (mistakeTestFilter !== "all") {
     const test = sessions.find((item) => item.id === mistakeTestFilter);
     return Boolean(test
       && (mistakeDirectionFilter === "all" || test.direction === mistakeDirectionFilter)
-      && test.wrongWordIds.includes(word.id));
+      && test.wrongWords.some((item) => item.wordKey === word.wordKey));
   }
 
   if (mistakeDirectionFilter !== "all") {
-    return sessions.some((test) => test.direction === mistakeDirectionFilter && test.wrongWordIds.includes(word.id));
+    return sessions.some((test) => test.direction === mistakeDirectionFilter
+      && test.wrongWords.some((item) => item.wordKey === word.wordKey));
   }
 
   return true;
@@ -276,7 +366,8 @@ function updateLearningStats() {
     elements.bestDetail.textContent = "まだ回答記録がありません";
   }
 
-  elements.historyMissCount.textContent = words.filter((word) => stats[word.id]?.wrong || stats[word.id]?.flagged).length;
+  elements.historyMissCount.textContent = Object.values(stats)
+    .filter((entry) => entry.wrong || entry.flagged).length;
   if (!screens.mistakes.hidden) renderMistakeTable();
 }
 
@@ -285,15 +376,16 @@ function needsReview(wordStats) {
 }
 
 function getMistakeWords(stats = getWordStats()) {
-  return words
-    .filter((word) => stats[word.id]?.wrong || stats[word.id]?.flagged)
-    .sort((a, b) => (stats[b.id].wrong || 0) - (stats[a.id].wrong || 0) || a.id - b.id);
+  return Object.values(stats)
+    .filter((entry) => entry.wrong || entry.flagged)
+    .map((entry) => entry.word)
+    .sort((a, b) => (stats[b.wordKey].wrong || 0) - (stats[a.wordKey].wrong || 0) || a.id - b.id);
 }
 
 function getVisibleMistakeWords(stats = getWordStats()) {
   const sessions = getTestHistory()?.sessions || [];
   return getMistakeWords(stats).filter((word) => {
-    const wordStats = stats[word.id];
+    const wordStats = stats[word.wordKey];
     const statusMatches = mistakeStatusFilter === "all"
       || (mistakeStatusFilter === "review" && needsReview(wordStats))
       || (mistakeStatusFilter === "mastered" && wordStats.wrong > 0 && !needsReview(wordStats))
@@ -320,15 +412,13 @@ function formatTestLabel(test) {
 }
 
 function renderTestFilters() {
-  const sessions = (getTestHistory()?.sessions || []).filter((test) => test.wrongWordIds?.length);
+  const sessions = (getTestHistory()?.sessions || []).filter((test) => test.wrongWords?.length);
   if (mistakeTestFilter !== "all"
-    && mistakeTestFilter !== "legacy"
     && !sessions.some((test) => test.id === mistakeTestFilter)) mistakeTestFilter = "all";
 
   elements.testFilter.replaceChildren();
   const options = [
     ["all", "すべてのテスト"],
-    ["legacy", "旧データ（方向・テスト不明）"],
     ...[...sessions]
       .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt))
       .map((test) => [test.id, formatTestLabel(test)]),
@@ -343,7 +433,7 @@ function renderTestFilters() {
 }
 
 function renderCountFilters(stats = getWordStats()) {
-  const counts = [...new Set(getMistakeWords(stats).map((word) => stats[word.id].wrong || 0))].sort((a, b) => a - b);
+  const counts = [...new Set(getMistakeWords(stats).map((word) => stats[word.wordKey].wrong || 0))].sort((a, b) => a - b);
   if (mistakeCountFilter !== null && !counts.includes(mistakeCountFilter)) mistakeCountFilter = null;
   elements.countFilters.replaceChildren();
 
@@ -379,7 +469,7 @@ function renderMistakeTable() {
   elements.mistakeEmpty.hidden = visibleWords.length > 0;
 
   visibleWords.forEach((word) => {
-    const wordStats = stats[word.id];
+    const wordStats = stats[word.wordKey];
     const attempts = (wordStats.correct || 0) + (wordStats.wrong || 0);
     const review = needsReview(wordStats);
     const hasAttempts = attempts > 0;
@@ -387,11 +477,11 @@ function renderMistakeTable() {
     const checkCell = document.createElement("td");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.checked = selectedMistakeIds.has(word.id);
+    checkbox.checked = selectedMistakeKeys.has(word.wordKey);
     checkbox.setAttribute("aria-label", `${word.english}を選択`);
     checkbox.addEventListener("change", () => {
-      if (checkbox.checked) selectedMistakeIds.add(word.id);
-      else selectedMistakeIds.delete(word.id);
+      if (checkbox.checked) selectedMistakeKeys.add(word.wordKey);
+      else selectedMistakeKeys.delete(word.wordKey);
       updateMistakeSelection(visibleWords);
     });
     checkCell.className = "check-column";
@@ -425,7 +515,7 @@ function renderMistakeTable() {
     flagButton.className = `flag-button${wordStats.flagged ? " active" : ""}`;
     flagButton.textContent = "要注意";
     flagButton.setAttribute("aria-pressed", String(Boolean(wordStats.flagged)));
-    flagButton.addEventListener("click", () => toggleWordFlag(word.id));
+    flagButton.addEventListener("click", () => toggleWordFlag(word));
     flagCell.append(flagButton);
     row.append(flagCell);
     elements.mistakeTableBody.append(row);
@@ -434,17 +524,14 @@ function renderMistakeTable() {
   updateMistakeSelection(visibleWords);
 }
 
-function toggleWordFlag(wordId) {
-  const stats = getWordStats();
-  const wordStats = stats[wordId] || { correct: 0, wrong: 0 };
+function toggleWordFlag(word) {
+  const nextData = structuredClone(storedData);
+  const wordStats = nextData.statsByWordKey[word.wordKey]
+    || { word: createWordSnapshot(word), correct: 0, wrong: 0 };
   wordStats.flagged = !wordStats.flagged;
-  stats[wordId] = wordStats;
-  try {
-    localStorage.setItem("word-stock-stats", JSON.stringify(stats));
-  } catch {
-    return;
-  }
-  if (!wordStats.wrong && !wordStats.flagged) selectedMistakeIds.delete(wordId);
+  nextData.statsByWordKey[word.wordKey] = wordStats;
+  if (!persistStoredData(nextData)) return;
+  if (!wordStats.wrong && !wordStats.flagged) selectedMistakeKeys.delete(word.wordKey);
   updateLearningStats();
   renderQuestionFlag();
 }
@@ -455,25 +542,25 @@ function renderQuestionFlag() {
     return;
   }
 
-  const flagged = Boolean(getWordStats()[session.questions[session.index].id]?.flagged);
+  const flagged = Boolean(getWordStats()[session.questions[session.index].wordKey]?.flagged);
   elements.questionFlag.hidden = false;
   elements.questionFlag.classList.toggle("active", flagged);
   elements.questionFlag.setAttribute("aria-pressed", String(flagged));
 }
 
 function updateMistakeSelection(visibleWords = getVisibleMistakeWords()) {
-  const selectedVisible = visibleWords.filter((word) => selectedMistakeIds.has(word.id)).length;
+  const selectedVisible = visibleWords.filter((word) => selectedMistakeKeys.has(word.wordKey)).length;
   elements.selectAllVisible.checked = visibleWords.length > 0 && selectedVisible === visibleWords.length;
   elements.selectAllVisible.indeterminate = selectedVisible > 0 && selectedVisible < visibleWords.length;
-  elements.selectedMistakeCount.textContent = selectedMistakeIds.size;
-  elements.startMistakeTest.disabled = selectedMistakeIds.size === 0;
+  elements.selectedMistakeCount.textContent = selectedMistakeKeys.size;
+  elements.startMistakeTest.disabled = selectedMistakeKeys.size === 0;
 }
 
 function showMistakes(resetSelection = true) {
   const stats = getWordStats();
   const missed = getMistakeWords(stats);
   if (resetSelection) {
-    selectedMistakeIds = new Set(missed.map((word) => word.id));
+    selectedMistakeKeys = new Set(missed.map((word) => word.wordKey));
     mistakeStatusFilter = "all";
     mistakeCountFilter = null;
     mistakeDirectionFilter = "all";
@@ -498,54 +585,42 @@ function showMistakes(resetSelection = true) {
 
 function saveSessionStats() {
   if (session.statsSaved) return;
-  const stats = getWordStats();
+  const nextData = structuredClone(storedData);
+  const stats = nextData.statsByWordKey;
   const results = session.settings.mode === "test" ? session.judgments : session.results;
+  const alreadyRecorded = nextData.sessions.some((test) => test.id === session.testId);
   session.completedAt ||= new Date().toISOString();
   session.historyEntry ||= {
     id: session.testId,
     completedAt: session.completedAt,
+    datasetVersion,
     direction: session.settings.direction,
     mode: session.settings.mode,
     source: session.source,
     from: session.source === "standard" ? session.settings.from : null,
     to: session.source === "standard" ? session.settings.to : null,
     questionCount: session.questions.length,
-    wrongWordIds: session.questions
+    wrongWords: session.questions
       .filter((word, index) => results[index] === false)
-      .map((word) => word.id),
+      .map(createWordSnapshot),
   };
 
-  session.questions.forEach((word, index) => {
-    const result = results[index];
-    if (result === null) return;
-    const current = stats[word.id] || { correct: 0, wrong: 0 };
-    current.correct ||= 0;
-    current.wrong ||= 0;
-    current[result ? "correct" : "wrong"] += 1;
-    if (!result) current.needsReview = true;
-    else if (session.source === "mistakes") current.needsReview = false;
-    else if (current.needsReview === undefined && current.wrong > 0) current.needsReview = true;
-    stats[word.id] = current;
-  });
-
-  try {
-    localStorage.setItem("word-stock-stats", JSON.stringify(stats));
-    session.statsSaved = true;
-  } catch {
-    // Results still work when browser storage is unavailable.
+  if (!alreadyRecorded) {
+    session.questions.forEach((word, index) => {
+      const result = results[index];
+      if (result === null) return;
+      const current = stats[word.wordKey] || { word: createWordSnapshot(word), correct: 0, wrong: 0 };
+      current.correct ||= 0;
+      current.wrong ||= 0;
+      current[result ? "correct" : "wrong"] += 1;
+      if (!result) current.needsReview = true;
+      else if (session.source === "mistakes") current.needsReview = false;
+      else if (current.needsReview === undefined && current.wrong > 0) current.needsReview = true;
+      stats[word.wordKey] = current;
+    });
+    nextData.sessions.push(session.historyEntry);
   }
-
-  if (session.statsSaved) {
-    const history = getTestHistory();
-    if (history && !history.sessions.some((test) => test.id === session.testId)) {
-      history.sessions.push(session.historyEntry);
-      try {
-        localStorage.setItem(TEST_HISTORY_KEY, JSON.stringify(history));
-      } catch {
-        // Keep cumulative statistics when detailed history cannot be stored.
-      }
-    }
-  }
+  session.statsSaved = persistStoredData(nextData);
   updateLearningStats();
 }
 
@@ -574,12 +649,13 @@ function beginQuiz(settings = getSettings(), customPool = null, source = "standa
 
   const requestedCount = customPool ? pool.length : settings.count === "all" ? pool.length : Number(settings.count);
   const questionCount = Math.min(requestedCount, pool.length);
+  indexQuestionData([...words, ...pool]);
   session = {
     testId: crypto.randomUUID(),
     startedAt: new Date().toISOString(),
     settings,
     source,
-    sourceIds: pool.map((word) => word.id),
+    sourceWordKeys: pool.map((word) => word.wordKey),
     pool,
     questions: shuffle(pool).slice(0, questionCount),
     index: 0,
@@ -605,7 +681,7 @@ function getAnswer(word) {
 }
 
 function getPrompt(word) {
-  return promptsByDirection[session.settings.direction].get(word.id);
+  return promptsByDirection[session.settings.direction].get(word.wordKey);
 }
 
 function getAcceptedAnswers(question) {
@@ -878,7 +954,7 @@ function showResult() {
       english.textContent = word.english;
       japanese.textContent = word.japanese;
       wrongCount.className = "wrong-count";
-      wrongCount.textContent = `間違い ${stats[word.id]?.wrong || 1}回`;
+      wrongCount.textContent = `間違い ${stats[word.wordKey]?.wrong || 1}回`;
       row.append(id, english, japanese, wrongCount);
       elements.reviewList.append(row);
     });
@@ -946,8 +1022,8 @@ elements.testFilter.addEventListener("change", () => {
 
 function setVisibleSelection(selected) {
   getVisibleMistakeWords().forEach((word) => {
-    if (selected) selectedMistakeIds.add(word.id);
-    else selectedMistakeIds.delete(word.id);
+    if (selected) selectedMistakeKeys.add(word.wordKey);
+    else selectedMistakeKeys.delete(word.wordKey);
   });
   renderMistakeTable();
 }
@@ -956,7 +1032,8 @@ elements.selectVisible.addEventListener("click", () => setVisibleSelection(true)
 elements.clearVisible.addEventListener("click", () => setVisibleSelection(false));
 elements.selectAllVisible.addEventListener("change", () => setVisibleSelection(elements.selectAllVisible.checked));
 elements.startMistakeTest.addEventListener("click", () => {
-  const selectedWords = words.filter((word) => selectedMistakeIds.has(word.id));
+  const stats = getWordStats();
+  const selectedWords = [...selectedMistakeKeys].map((wordKey) => stats[wordKey]?.word).filter(Boolean);
   if (selectedWords.length) beginQuiz(getSettings(), selectedWords, "mistakes");
 });
 
@@ -970,8 +1047,8 @@ document.querySelector("#back-button").addEventListener("click", () => {
 });
 document.querySelector("#retry-button").addEventListener("click", () => {
   if (session.source === "mistakes") {
-    const sourceIds = new Set(session.sourceIds);
-    beginQuiz(session.settings, words.filter((word) => sourceIds.has(word.id)), "mistakes");
+    const sourceWordKeys = new Set(session.sourceWordKeys);
+    beginQuiz(session.settings, session.pool.filter((word) => sourceWordKeys.has(word.wordKey)), "mistakes");
   } else {
     beginQuiz(session.settings);
   }
@@ -984,7 +1061,20 @@ elements.previousReview.addEventListener("click", moveReviewBack);
 elements.finishReview.addEventListener("click", completeReview);
 elements.questionFlag.addEventListener("click", () => {
   if (!session || session.settings.mode !== "test") return;
-  toggleWordFlag(session.questions[session.index].id);
+  toggleWordFlag(session.questions[session.index]);
+});
+
+window.addEventListener("storage", (event) => {
+  if (event.key !== STORAGE_KEY || !event.newValue) return;
+  try {
+    const data = JSON.parse(event.newValue);
+    if (!isStoredDataValid(data)) return;
+    storedData = data;
+    updateLearningStats();
+    if (!screens.mistakes.hidden) showMistakes(false);
+  } catch {
+    // Ignore incomplete writes from another tab.
+  }
 });
 
 document.addEventListener("keydown", (event) => {
@@ -1007,8 +1097,19 @@ async function initialize() {
   try {
     const response = await fetch("words.csv");
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    words = parseWordsCsv(await response.text());
+    const csvBytes = new Uint8Array(await response.arrayBuffer());
+    datasetVersion = `sha256:${await sha256Hex(csvBytes)}`;
+    const parsedWords = parseWordsCsv(new TextDecoder("utf-8").decode(csvBytes));
+    if (new Set(parsedWords.map((word) => word.id)).size !== parsedWords.length) {
+      throw new Error("Duplicate word IDs");
+    }
+    words = await addWordKeys(parsedWords);
     if (!words.length) throw new Error("No words parsed");
+    storedData = loadStoredData();
+    if (hasLegacyStoredData()) {
+      elements.legacyDataNotice.hidden = false;
+      elements.legacyDataNotice.textContent = "以前の履歴は安全のため現在の単語へ引き継いでいません。旧データはブラウザ内に保持されています。";
+    }
     indexQuestionData();
 
     const maxId = words.at(-1).id;
@@ -1018,7 +1119,9 @@ async function initialize() {
     elements.to.value = maxId;
     elements.rangeOutput.value = `1 - ${maxId}`;
     elements.start.disabled = false;
+    elements.openMistakes.disabled = false;
     updateLearningStats();
+    if (storageErrorMessage) showStorageWarning(storageErrorMessage);
   } catch (error) {
     console.error(error);
     elements.error.hidden = false;
