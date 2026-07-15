@@ -671,7 +671,7 @@ function beginQuiz(settings = getSettings(), customPool = null, source = "standa
   elements.error.hidden = true;
   const directionLabel = settings.direction === "en-ja" ? "EN → JA" : "JA → EN";
   elements.direction.textContent = settings.mode === "test" ? `TEST / ${directionLabel}` : directionLabel;
-  document.querySelector("#back-button").textContent = source === "mistakes" ? "間違い一覧へ戻る" : "設定を変える";
+  document.querySelector("#back-button").textContent = source === "mistakes" ? "間違い一覧へ戻る" : "ホームに戻る";
   showScreen("quiz");
   renderQuestion();
 }
