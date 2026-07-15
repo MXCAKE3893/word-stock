@@ -1,200 +1,200 @@
 ID,単語,日本語
-1,"be/am, is, are",～です/ある/いる
-2,become,～になる
-3,begin,始める/始まる
-4,break,壊れる/壊す
-5,bring,持ってくる
-6,build,建てる
-7,burned,燃やす
-8,buy,買う
-9,catch,つかまえる
-10,choose,選ぶ
-11,come,来る
+1,"be/am, is, are / was, were",～です/ある/いる
+2,become / became,～になる
+3,begin / began,始める/始まる
+4,break / broke,壊れる/壊す
+5,bring / brought,持ってくる
+6,build / built,建てる
+7,burn / burned,燃やす
+8,buy / bought,買う
+9,catch / caught,つかまえる
+10,choose / chose,選ぶ
+11,come / came,来る
 12,cut,切る
-13,do/does,する
-14,draw,（絵を）描く/（線を）引く
-15,drink,飲む
-16,drive,運転する
-17,eat,食べる
-18,fall,落ちる/倒れる
-19,feel,感じる
-20,find,見つける/発見する
-21,forget,忘れる
-22,get,得る/手に入れる
-23,give,与える
-24,go,行く
-25,grow,成長する/育つ
-26,have/has,持っている/ある
-27,hear,聞く
-28,hold,保つ/握る/開催する
+13,do/does / did,する
+14,draw / drew,（絵を）描く/（線を）引く
+15,drink / drank,飲む
+16,drive / drove,運転する
+17,eat / ate,食べる
+18,fall / fell,落ちる/倒れる
+19,feel / felt,感じる
+20,find / found,見つける/発見する
+21,forget / forgot,忘れる
+22,get / got,得る/手に入れる
+23,give / gave,与える
+24,go / went,行く
+25,grow / grew,成長する/育つ
+26,have/has / had,持っている/ある
+27,hear / heard,聞く
+28,hold / held,保つ/握る/開催する
 29,hurt,傷つける
-30,kept,保つ/～し続ける
-31,know,知っている
-32,leave,出発する/置いていく
-33,lose,なくす/負ける
-34,make,作る/～させる
-35,mean,意味する
-36,meet,会う/集合する
-37,pay,支払う
+30,keep / kept,保つ/～し続ける
+31,know / knew,知っている
+32,leave / left,出発する/置いていく
+33,lose / lost,なくす/負ける
+34,make / made,作る/～させる
+35,mean / meant,意味する
+36,meet / met,会う/集合する
+37,pay / paid,支払う
 38,put,置く
 39,read,読む
-40,ride,乗る
-41,rise,上がる
-42,run,走る
-43,say,言う
-44,see,見る/会う
-45,sell,売る
-46,send,送る
+40,ride / rode,乗る
+41,rise / rose,上がる
+42,run / ran,走る
+43,say / said,言う
+44,see / saw,見る/会う
+45,sell / sold,売る
+46,send / sent,送る
 47,set,準備する
-48,showed,見せる/案内する
-49,sing,歌う
-50,sit,座る
+48,show / showed,見せる/案内する
+49,sing / sang,歌う
+50,sit / sat,座る
 51,spread,広がる
-52,sleep,眠る/(名)睡眠
-53,speak,話す
-54,stand,立つ
-55,steal,盗む
-56,swim,泳ぐ
-57,take,とる/乗る
-58,teach,教える
-59,tell,告げる/言う
-60,think,思う/考える
-61,understand,理解する
+52,sleep / slept,眠る/(名)睡眠
+53,speak / spoke,話す
+54,stand / stood,立つ
+55,steal / stole,盗む
+56,swim / swam,泳ぐ
+57,take / took,とる/乗る
+58,teach / taught,教える
+59,tell / told,告げる/言う
+60,think / thought,思う/考える
+61,understand / understood,理解する
 62,wake (up),目が覚める
-63,wear,着る
-64,win,勝つ
-65,write,書く
-66,agree,賛成する
-67,answer,答える/電話に出る
-68,apologize,謝る
-69,appear,現れる
+63,wear / wore,着る
+64,win / won,勝つ
+65,write / wrote,書く
+66,agree / agreed,賛成する
+67,answer / answered,答える/電話に出る
+68,apologize / apologized,謝る
+69,appear / appeared,現れる
 70,arrive at ～,～に到着する
-71,ask,尋ねる/頼む
-72,attend,出席する
-73,believe,信じる
-74,borrow,借りる
-75,brush,みがく/ブラシをかける
-76,call,呼ぶ/電話する
-77,carry,運ぶ
-78,celebrate,祝う
-79,change,変わる/変える/着替える
-80,check,点検する/調べる
-81,cheer,応援する/元気づける
-82,clean,そうじする/(形)きれいな
-83,climb,登る
-84,close (動),閉める
+71,ask / asked,尋ねる/頼む
+72,attend / attended,出席する
+73,believe / believed,信じる
+74,borrow / borrowed,借りる
+75,brush / brushed,みがく/ブラシをかける
+76,call / called,呼ぶ/電話する
+77,carry / carried,運ぶ
+78,celebrate / celebrated,祝う
+79,change / changed,変わる/変える/着替える
+80,check / checked,点検する/調べる
+81,cheer / cheered,応援する/元気づける
+82,clean / cleaned,そうじする/(形)きれいな
+83,climb / climbed,登る
+84,close (動) / closed,閉める
 85,close (形),(形)近い
-86,collect,集める
-87,communicate,意思を伝える
-88,compare,比べる
-89,connect,つなぐ
-90,continue,続ける
-91,cook,料理する
-92,count,数える
-93,cover,おおう
-94,create,創造する/作り出す
-95,cry,泣く/叫ぶ
-96,decide,決める/決心する
-97,decorate,飾る
-98,develop,発達させる
-99,die,死ぬ
-100,disagree,反対する
-101,disappear,消滅する/消える
-102,drop,落とす/落ちる
-103,dry,かわかす
-104,earn,(お金を)かせぐ
-105,elect,選ぶ
-106,end,終わる
-107,enjoy,楽しむ
-108,enter,入る
-109,exchange,交換する
-110,excuse,許す
-111,explain,説明する
-112,face,直面する/(名)顔
-113,finish,終える
-114,fix,(小さな物を)修理する
-115,follow,従う
-116,gather,集める
-117,guess,推測する
-118,happen,起こる
-119,hope,望む
+86,collect / collected,集める
+87,communicate / communicated,意思を伝える
+88,compare / compared,比べる
+89,connect / connected,つなぐ
+90,continue / continued,続ける
+91,cook / cooked,料理する
+92,count / counted,数える
+93,cover / covered,おおう
+94,create / created,創造する/作り出す
+95,cry / cried,泣く/叫ぶ
+96,decide / decided,決める/決心する
+97,decorate / decorated,飾る
+98,develop / developed,発達させる
+99,die / died,死ぬ
+100,disagree / disagreed,反対する
+101,disappear / disappeared,消滅する/消える
+102,drop / dropped,落とす/落ちる
+103,dry / dried,かわかす
+104,earn / earned,(お金を)かせぐ
+105,elect / elected,選ぶ
+106,end / ended,終わる
+107,enjoy / enjoyed,楽しむ
+108,enter / entered,入る
+109,exchange / exchanged,交換する
+110,excuse / excused,許す
+111,explain / explained,説明する
+112,face / faced,直面する/(名)顔
+113,finish / finished,終える
+114,fix / fixed,(小さな物を)修理する
+115,follow / followed,従う
+116,gather / gathered,集める
+117,guess / guessed,推測する
+118,happen / happened,起こる
+119,hope / hoped,望む
 120,hurry (up),急ぐ
-121,improve,改善する
-122,influence,～に影響を及ぼす
-123,introduce,紹介する
-124,invent,発明する
-125,jog,ゆっくり走る
-126,join,参加する/加わる
-127,kill,殺す
-128,knock,ノックする
-129,learn,学ぶ/習う
-130,like,好きである
+121,improve / improved,改善する
+122,influence / influenced,～に影響を及ぼす
+123,introduce / introduced,紹介する
+124,invent / invented,発明する
+125,jog / jogged,ゆっくり走る
+126,join / joined,参加する/加わる
+127,kill / killed,殺す
+128,knock / knocked,ノックする
+129,learn / learned,学ぶ/習う
+130,like / liked,好きである
 131,listen to ～,～を聞く
-132,live,住んでいる
-133,look,見る/見える
-134,love,大好きである/愛する
-135,miss,見逃す/乗り遅れる/～がいなくてさびしい
-136,move,動く/引っ越す/感動させる
+132,live / lived,住んでいる
+133,look / looked,見る/見える
+134,love / loved,大好きである/愛する
+135,miss / missed,見逃す/乗り遅れる/～がいなくてさびしい
+136,move / moved,動く/引っ越す/感動させる
 137,name after ～,～になんで名づける
-138,need,必要とする
-139,open,開ける
-140,order,命令する/注文する
-141,paint,(絵の具で絵を)描く/ぬる
+138,need / needed,必要とする
+139,open / opened,開ける
+140,order / ordered,命令する/注文する
+141,paint / painted,(絵の具で絵を)描く/ぬる
 142,Pardon?,何とおっしゃいましたか?
-143,pass,手渡す/通り過ぎる
-144,perform,演じる
-145,pick,つまむ
-146,plan,計画する
-147,play,(運動や遊びを)する/(楽器を)演奏する
-148,point,指さす
-149,post,(情報を)掲示する
-150,practice,練習する
-151,prepare,準備する
-152,produce,生産する
-153,promise,約束する
-154,pull,ひっぱる
-155,push,押す
-156,rain,雨が降る
-157,realize,気づく
-158,receive,受け取る
-159,remember,覚えている/思い出す
-160,remain,残る
-161,repair,(大がかりな)修理する
-162,relax,くつろぐ
-163,research,調査する/研究する
-164,save,救う/蓄える/節約する
-165,select,選ぶ
-166,share,分かち合う/共有する
-167,smile,ほほえむ
-168,snow,雪が降る
-169,sound,～のように聞こえる
-170,spell,つづる/書く
-171,start,出発する/始める
-172,stay,滞在する
-173,stop,止まる/やめる/(名)バス停
-174,study,勉強する/研究する
-175,support,支援する
-176,surprise,驚かせる
-177,talk,(二人で)話す
-178,thank,感謝する
-179,touch,さわる
-180,train,訓練する/(名)電車
-181,travel,旅行する
-182,treat,扱う
-183,try,やってみる/試す
-184,turn,曲がる
-185,use,使う/利用する
-186,visit,訪れる
+143,pass / passed,手渡す/通り過ぎる
+144,perform / performed,演じる
+145,pick / picked,つまむ
+146,plan / planned,計画する
+147,play / played,(運動や遊びを)する/(楽器を)演奏する
+148,point / pointed,指さす
+149,post / posted,(情報を)掲示する
+150,practice / practiced,練習する
+151,prepare / prepared,準備する
+152,produce / produced,生産する
+153,promise / promised,約束する
+154,pull / pulled,ひっぱる
+155,push / pushed,押す
+156,rain / rained,雨が降る
+157,realize / realized,気づく
+158,receive / received,受け取る
+159,remember / remembered,覚えている/思い出す
+160,remain / remained,残る
+161,repair / repaired,(大がかりな)修理する
+162,relax / relaxed,くつろぐ
+163,research / researched,調査する/研究する
+164,save / saved,救う/蓄える/節約する
+165,select / selected,選ぶ
+166,share / shared,分かち合う/共有する
+167,smile / smiled,ほほえむ
+168,snow / snowed,雪が降る
+169,sound / sounded,～のように聞こえる
+170,spell / spelled,つづる/書く
+171,start / started,出発する/始める
+172,stay / stayed,滞在する
+173,stop / stopped,止まる/やめる/(名)バス停
+174,study / studied,勉強する/研究する
+175,support / supported,支援する
+176,surprise / surprised,驚かせる
+177,talk / talked,(二人で)話す
+178,thank / thanked,感謝する
+179,touch / touched,さわる
+180,train / trained,訓練する/(名)電車
+181,travel / traveled,旅行する
+182,treat / treated,扱う
+183,try / tried,やってみる/試す
+184,turn / turned,曲がる
+185,use / used,使う/利用する
+186,visit / visited,訪れる
 187,wait (for ～),待つ
-188,walk,歩く/歩いていく
-189,wash,洗う
-190,watch,(テレビなどを)見る
-191,welcome,歓迎する/迎える
+188,walk / walked,歩く/歩いていく
+189,wash / washed,洗う
+190,watch / watched,(テレビなどを)見る
+191,welcome / welcomed,歓迎する/迎える
 192,wish ～,～を願う
-193,wonder,～かしらと思う
-194,work,働く/(名)仕事
-195,worry,心配する/悩む
-196,wrap,巻く
+193,wonder / wondered,～かしらと思う
+194,work / worked,働く/(名)仕事
+195,worry / worried,心配する/悩む
+196,wrap / wrapped,巻く
 197,can ～,～できる
 198,be able to ～,(書きかえ) ～できるようになる
 199,will ～,～するでしょう
