@@ -40,6 +40,7 @@ const elements = {
   questionText: document.querySelector("#question-text"),
   questionHint: document.querySelector(".question-hint"),
   questionCard: document.querySelector(".question-card"),
+  questionFlag: document.querySelector("#question-flag"),
   options: document.querySelector("#answer-options"),
   feedback: document.querySelector("#answer-feedback"),
   testAnswer: document.querySelector("#test-answer"),
@@ -54,6 +55,9 @@ const elements = {
   reviewCorrection: document.querySelector("#review-correction"),
   previousReview: document.querySelector("#previous-review"),
   finishReview: document.querySelector("#finish-review"),
+  reviewOverview: document.querySelector("#review-overview"),
+  reviewSummary: document.querySelector("#review-summary"),
+  reviewQuestionList: document.querySelector("#review-question-list"),
   keyboardHint: document.querySelector("#keyboard-hint"),
   scoreRing: document.querySelector("#score-ring"),
   scorePercent: document.querySelector("#score-percent"),
@@ -272,7 +276,7 @@ function updateLearningStats() {
     elements.bestDetail.textContent = "まだ回答記録がありません";
   }
 
-  elements.historyMissCount.textContent = words.filter((word) => stats[word.id]?.wrong).length;
+  elements.historyMissCount.textContent = words.filter((word) => stats[word.id]?.wrong || stats[word.id]?.flagged).length;
   if (!screens.mistakes.hidden) renderMistakeTable();
 }
 
@@ -282,8 +286,8 @@ function needsReview(wordStats) {
 
 function getMistakeWords(stats = getWordStats()) {
   return words
-    .filter((word) => stats[word.id]?.wrong)
-    .sort((a, b) => stats[b.id].wrong - stats[a.id].wrong || a.id - b.id);
+    .filter((word) => stats[word.id]?.wrong || stats[word.id]?.flagged)
+    .sort((a, b) => (stats[b.id].wrong || 0) - (stats[a.id].wrong || 0) || a.id - b.id);
 }
 
 function getVisibleMistakeWords(stats = getWordStats()) {
@@ -292,9 +296,9 @@ function getVisibleMistakeWords(stats = getWordStats()) {
     const wordStats = stats[word.id];
     const statusMatches = mistakeStatusFilter === "all"
       || (mistakeStatusFilter === "review" && needsReview(wordStats))
-      || (mistakeStatusFilter === "mastered" && !needsReview(wordStats))
+      || (mistakeStatusFilter === "mastered" && wordStats.wrong > 0 && !needsReview(wordStats))
       || (mistakeStatusFilter === "flagged" && wordStats.flagged);
-    const countMatches = mistakeCountFilter === null || wordStats.wrong === mistakeCountFilter;
+    const countMatches = mistakeCountFilter === null || (wordStats.wrong || 0) === mistakeCountFilter;
     return statusMatches && countMatches && matchesMistakeHistory(word, wordStats, sessions);
   });
 }
@@ -339,7 +343,7 @@ function renderTestFilters() {
 }
 
 function renderCountFilters(stats = getWordStats()) {
-  const counts = [...new Set(getMistakeWords(stats).map((word) => stats[word.id].wrong))].sort((a, b) => a - b);
+  const counts = [...new Set(getMistakeWords(stats).map((word) => stats[word.id].wrong || 0))].sort((a, b) => a - b);
   if (mistakeCountFilter !== null && !counts.includes(mistakeCountFilter)) mistakeCountFilter = null;
   elements.countFilters.replaceChildren();
 
@@ -376,8 +380,9 @@ function renderMistakeTable() {
 
   visibleWords.forEach((word) => {
     const wordStats = stats[word.id];
-    const attempts = (wordStats.correct || 0) + wordStats.wrong;
+    const attempts = (wordStats.correct || 0) + (wordStats.wrong || 0);
     const review = needsReview(wordStats);
+    const hasAttempts = attempts > 0;
     const row = document.createElement("tr");
     const checkCell = document.createElement("td");
     const checkbox = document.createElement("input");
@@ -396,8 +401,8 @@ function renderMistakeTable() {
       [String(word.id).padStart(3, "0"), "id-cell"],
       [word.english, "word-cell"],
       [word.japanese, ""],
-      [`${wordStats.wrong}回`, ""],
-      [`${Math.round(((wordStats.correct || 0) / attempts) * 100)}%`, ""],
+      [`${wordStats.wrong || 0}回`, ""],
+      [hasAttempts ? `${Math.round(((wordStats.correct || 0) / attempts) * 100)}%` : "--", ""],
     ];
     row.append(checkCell);
     values.forEach(([value, className]) => {
@@ -409,8 +414,8 @@ function renderMistakeTable() {
 
     const statusCell = document.createElement("td");
     const badge = document.createElement("span");
-    badge.className = `status-badge ${review ? "review" : "mastered"}`;
-    badge.textContent = review ? "要復習" : "克服済み";
+    badge.className = `status-badge ${hasAttempts ? (review ? "review" : "mastered") : "unanswered"}`;
+    badge.textContent = hasAttempts ? (review ? "要復習" : "克服済み") : "未回答";
     statusCell.append(badge);
     row.append(statusCell);
 
@@ -431,15 +436,29 @@ function renderMistakeTable() {
 
 function toggleWordFlag(wordId) {
   const stats = getWordStats();
-  const wordStats = stats[wordId];
-  if (!wordStats) return;
+  const wordStats = stats[wordId] || { correct: 0, wrong: 0 };
   wordStats.flagged = !wordStats.flagged;
+  stats[wordId] = wordStats;
   try {
     localStorage.setItem("word-stock-stats", JSON.stringify(stats));
   } catch {
     return;
   }
-  renderMistakeTable();
+  if (!wordStats.wrong && !wordStats.flagged) selectedMistakeIds.delete(wordId);
+  updateLearningStats();
+  renderQuestionFlag();
+}
+
+function renderQuestionFlag() {
+  if (!session || session.settings.mode !== "test") {
+    elements.questionFlag.hidden = true;
+    return;
+  }
+
+  const flagged = Boolean(getWordStats()[session.questions[session.index].id]?.flagged);
+  elements.questionFlag.hidden = false;
+  elements.questionFlag.classList.toggle("active", flagged);
+  elements.questionFlag.setAttribute("aria-pressed", String(flagged));
 }
 
 function updateMistakeSelection(visibleWords = getVisibleMistakeWords()) {
@@ -635,6 +654,8 @@ function renderQuestion() {
     : "対応する英語を選んでください";
   elements.questionText.textContent = getPrompt(question);
   elements.questionCard.classList.remove("test-phase", "review-phase");
+  elements.questionFlag.hidden = true;
+  elements.reviewOverview.hidden = true;
   elements.options.hidden = false;
   elements.feedback.hidden = false;
   elements.testAnswer.hidden = true;
@@ -674,6 +695,8 @@ function renderTestQuestion() {
   elements.feedback.hidden = true;
   elements.options.replaceChildren();
   elements.feedback.replaceChildren();
+  renderQuestionFlag();
+  elements.reviewOverview.hidden = !isReview;
 
   if (!isReview) {
     elements.questionCard.classList.add("test-phase");
@@ -702,10 +725,42 @@ function renderTestQuestion() {
   elements.reviewActions.hidden = false;
   elements.reviewCorrection.hidden = false;
   elements.previousReview.disabled = session.index === 0;
-  elements.finishReview.hidden = session.index !== total - 1 || session.judgments[session.index] === null;
+  elements.finishReview.hidden = session.judgments.some((result) => result === null);
   elements.markCorrect.classList.toggle("selected", session.judgments[session.index] === true);
   elements.markWrong.classList.toggle("selected", session.judgments[session.index] === false);
   elements.keyboardHint.innerHTML = "<kbd>1</kbd> 正解　<kbd>2</kbd> 不正解";
+  renderReviewOverview();
+}
+
+function renderReviewOverview() {
+  const judgedCount = session.judgments.filter((result) => result !== null).length;
+  elements.reviewSummary.textContent = `${judgedCount} / ${session.questions.length} 採点済み`;
+  elements.reviewQuestionList.replaceChildren();
+
+  session.questions.forEach((question, index) => {
+    const judgment = session.judgments[index];
+    const state = judgment === null ? "未採点" : judgment ? "正解" : "不正解";
+    const button = document.createElement("button");
+    const number = document.createElement("span");
+    const mark = document.createElement("span");
+    button.type = "button";
+    button.className = `review-question ${judgment === null ? "pending" : judgment ? "correct" : "wrong"}`;
+    button.setAttribute("aria-label", `${index + 1}問目、${state}、${getPrompt(question)}`);
+    if (index === session.index) button.setAttribute("aria-current", "step");
+    number.textContent = String(index + 1);
+    mark.setAttribute("aria-hidden", "true");
+    mark.textContent = judgment === null ? "−" : judgment ? "○" : "×";
+    button.append(number, mark);
+    button.addEventListener("click", () => goToReviewQuestion(index));
+    elements.reviewQuestionList.append(button);
+  });
+}
+
+function goToReviewQuestion(index) {
+  if (session?.settings.mode !== "test" || session.phase !== "review") return;
+  if (!Number.isInteger(index) || index < 0 || index >= session.questions.length) return;
+  session.index = index;
+  renderQuestion();
 }
 
 function moveTestQuestion(offset) {
@@ -927,6 +982,10 @@ elements.markCorrect.addEventListener("click", () => markTestAnswer(true));
 elements.markWrong.addEventListener("click", () => markTestAnswer(false));
 elements.previousReview.addEventListener("click", moveReviewBack);
 elements.finishReview.addEventListener("click", completeReview);
+elements.questionFlag.addEventListener("click", () => {
+  if (!session || session.settings.mode !== "test") return;
+  toggleWordFlag(session.questions[session.index].id);
+});
 
 document.addEventListener("keydown", (event) => {
   if (screens.quiz.hidden || !session) return;

@@ -36,7 +36,7 @@
           <span id="best-detail">まだ回答記録がありません</span>
         </div>
         <button id="open-mistakes" class="mistake-link" type="button">
-          <span>間違えた問題一覧 <b id="history-miss-count">0</b></span><i>→</i>
+          <span>復習する問題一覧 <b id="history-miss-count">0</b></span><i>→</i>
         </button>
       </div>
 
@@ -95,9 +95,9 @@
     <section id="mistakes-screen" class="screen mistakes-screen" hidden>
       <div class="mistakes-heading">
         <button id="close-mistakes" class="text-button" type="button">← 設定に戻る</button>
-        <p class="eyebrow">MISTAKE ARCHIVE</p>
-        <h1>間違えた問題。</h1>
-        <p>復習する単語を選んで、もう一度テストできます。</p>
+        <p class="eyebrow">REVIEW ARCHIVE</p>
+        <h1>復習する問題。</h1>
+        <p>間違えた単語や要注意の単語を選んで、もう一度テストできます。</p>
       </div>
 
       <div class="mistake-toolbar">
@@ -170,7 +170,10 @@
       <div class="progress-track"><span id="progress-bar"></span></div>
 
       <article class="question-card">
-        <span id="question-id" class="question-id">WORD 001</span>
+        <div class="question-meta">
+          <span id="question-id" class="question-id">WORD 001</span>
+          <button id="question-flag" class="flag-button question-flag" type="button" aria-pressed="false" hidden>要注意</button>
+        </div>
         <p class="question-hint">次の意味を選んでください</p>
         <h2 id="question-text">be / am / is / are</h2>
         <div id="test-answer" class="test-answer" hidden>
@@ -193,6 +196,13 @@
           <button id="finish-review" class="next-button" type="button" hidden>採点を完了する →</button>
         </div>
       </article>
+      <section id="review-overview" class="review-overview" aria-label="答え合わせの正誤一覧" hidden>
+        <div class="review-overview-heading">
+          <strong>答え合わせ一覧</strong>
+          <span id="review-summary">0 / 0 採点済み</span>
+        </div>
+        <div id="review-question-list" class="review-question-list"></div>
+      </section>
       <p id="keyboard-hint" class="keyboard-hint"><kbd>1</kbd>–<kbd>4</kbd> で選択　<kbd>Enter</kbd> で次へ</p>
     </section>
 

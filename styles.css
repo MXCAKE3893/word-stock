@@ -623,6 +623,11 @@ legend output {
   background: #d9e8dc;
 }
 
+.status-badge.unanswered {
+  color: #62675f;
+  background: #e7e5da;
+}
+
 .flag-button {
   padding: 6px 9px;
   color: #777c73;
@@ -769,6 +774,21 @@ legend output {
   font-size: 9px;
   font-weight: 900;
   letter-spacing: .18em;
+}
+
+.question-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 29px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.question-flag {
+  position: relative;
+  z-index: 1;
 }
 
 .question-hint {
@@ -947,6 +967,71 @@ legend output {
 .review-correction .text-button:disabled {
   cursor: not-allowed;
   opacity: .35;
+}
+
+.review-overview {
+  margin-top: 22px;
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--line);
+}
+
+.review-overview-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 14px;
+  font-size: 10px;
+  letter-spacing: .08em;
+}
+
+.review-overview-heading span {
+  color: #74796f;
+}
+
+.review-question-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 7px;
+}
+
+.review-question {
+  display: grid;
+  min-height: 48px;
+  place-content: center;
+  padding: 5px;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  font-size: 10px;
+  line-height: 1.15;
+}
+
+.review-question span:last-child {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.review-question.pending {
+  color: #74796f;
+  background: transparent;
+}
+
+.review-question.correct {
+  color: white;
+  background: var(--correct);
+  border-color: var(--correct);
+}
+
+.review-question.wrong {
+  color: white;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.review-question[aria-current="step"] {
+  outline: 3px solid var(--paper);
+  box-shadow: 0 0 0 5px var(--ink);
 }
 
 .question-card.test-phase {
@@ -1318,6 +1403,14 @@ footer {
 
   .review-actions button:first-child {
     order: 2;
+  }
+
+  .review-overview {
+    padding: 16px 13px;
+  }
+
+  .review-question-list {
+    grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
   }
 
   .question-card.test-phase h2 {
