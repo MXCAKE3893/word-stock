@@ -21,7 +21,9 @@ const elements = {
   openMistakes: document.querySelector("#open-mistakes"),
   closeMistakes: document.querySelector("#close-mistakes"),
   statusFilters: document.querySelector("#status-filters"),
+  directionFilters: document.querySelector("#direction-filters"),
   countFilters: document.querySelector("#count-filters"),
+  testFilter: document.querySelector("#test-filter"),
   selectVisible: document.querySelector("#select-visible"),
   clearVisible: document.querySelector("#clear-visible"),
   selectAllVisible: document.querySelector("#select-all-visible"),
@@ -60,6 +62,7 @@ const elements = {
   questionCount: document.querySelector("#question-count"),
   missCount: document.querySelector("#miss-count"),
   reviewList: document.querySelector("#review-list"),
+  resultTestLabel: document.querySelector("#result-test-label"),
 };
 
 let words = [];
@@ -69,6 +72,9 @@ const answersByDirection = { "en-ja": new Map(), "ja-en": new Map() };
 let selectedMistakeIds = new Set();
 let mistakeStatusFilter = "all";
 let mistakeCountFilter = null;
+let mistakeDirectionFilter = "all";
+let mistakeTestFilter = "all";
+const TEST_HISTORY_KEY = "word-stock-test-history-v1";
 
 function parseCsvRows(csv) {
   const rows = [];
@@ -195,6 +201,60 @@ function getWordStats() {
   }
 }
 
+function getTestHistory() {
+  const emptyHistory = { version: 1, sessions: [] };
+  try {
+    const stored = localStorage.getItem(TEST_HISTORY_KEY);
+    if (!stored) return emptyHistory;
+    const history = JSON.parse(stored);
+    const valid = history?.version === 1
+      && Array.isArray(history.sessions)
+      && history.sessions.every((test) => typeof test?.id === "string"
+        && typeof test.completedAt === "string"
+        && ["en-ja", "ja-en"].includes(test.direction)
+        && ["choice", "test"].includes(test.mode)
+        && ["standard", "mistakes"].includes(test.source)
+        && Number.isInteger(test.questionCount)
+        && Array.isArray(test.wrongWordIds)
+        && test.wrongWordIds.every(Number.isInteger));
+    if (!valid) return null;
+    return history;
+  } catch {
+    return null;
+  }
+}
+
+function getRecordedWrongCount(wordId, sessions) {
+  return sessions.reduce((count, test) => count + (test.wrongWordIds?.includes(wordId) ? 1 : 0), 0);
+}
+
+function hasLegacyMistake(wordId, wordStats, sessions) {
+  return wordStats.wrong > getRecordedWrongCount(wordId, sessions);
+}
+
+function matchesMistakeHistory(word, wordStats, sessions) {
+  const legacy = hasLegacyMistake(word.id, wordStats, sessions);
+
+  if (mistakeTestFilter === "legacy") return mistakeDirectionFilter === "all" || mistakeDirectionFilter === "legacy"
+    ? legacy
+    : false;
+
+  if (mistakeDirectionFilter === "legacy") return mistakeTestFilter === "all" && legacy;
+
+  if (mistakeTestFilter !== "all") {
+    const test = sessions.find((item) => item.id === mistakeTestFilter);
+    return Boolean(test
+      && (mistakeDirectionFilter === "all" || test.direction === mistakeDirectionFilter)
+      && test.wrongWordIds.includes(word.id));
+  }
+
+  if (mistakeDirectionFilter !== "all") {
+    return sessions.some((test) => test.direction === mistakeDirectionFilter && test.wrongWordIds.includes(word.id));
+  }
+
+  return true;
+}
+
 function updateLearningStats() {
   const stats = getWordStats();
   const totals = Object.values(stats).reduce((result, word) => {
@@ -227,13 +287,54 @@ function getMistakeWords(stats = getWordStats()) {
 }
 
 function getVisibleMistakeWords(stats = getWordStats()) {
+  const sessions = getTestHistory()?.sessions || [];
   return getMistakeWords(stats).filter((word) => {
     const wordStats = stats[word.id];
     const statusMatches = mistakeStatusFilter === "all"
       || (mistakeStatusFilter === "review" && needsReview(wordStats))
       || (mistakeStatusFilter === "mastered" && !needsReview(wordStats))
       || (mistakeStatusFilter === "flagged" && wordStats.flagged);
-    return statusMatches && (mistakeCountFilter === null || wordStats.wrong === mistakeCountFilter);
+    const countMatches = mistakeCountFilter === null || wordStats.wrong === mistakeCountFilter;
+    return statusMatches && countMatches && matchesMistakeHistory(word, wordStats, sessions);
+  });
+}
+
+function formatTestLabel(test) {
+  const date = new Intl.DateTimeFormat("ja-JP", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(new Date(test.completedAt));
+  const direction = test.direction === "en-ja" ? "EN→JA" : "JA→EN";
+  const mode = test.mode === "test" ? "テスト" : "4択";
+  const scope = test.source === "mistakes" ? "誤答復習" : `ID ${test.from}–${test.to}`;
+  const shortId = test.id.replaceAll("-", "").slice(0, 6).toUpperCase();
+  return `${date}｜${direction}｜${mode}｜${test.questionCount}問｜${scope}｜#${shortId}`;
+}
+
+function renderTestFilters() {
+  const sessions = (getTestHistory()?.sessions || []).filter((test) => test.wrongWordIds?.length);
+  if (mistakeTestFilter !== "all"
+    && mistakeTestFilter !== "legacy"
+    && !sessions.some((test) => test.id === mistakeTestFilter)) mistakeTestFilter = "all";
+
+  elements.testFilter.replaceChildren();
+  const options = [
+    ["all", "すべてのテスト"],
+    ["legacy", "旧データ（方向・テスト不明）"],
+    ...[...sessions]
+      .sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt))
+      .map((test) => [test.id, formatTestLabel(test)]),
+  ];
+  options.forEach(([value, label]) => {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = label;
+    option.selected = value === mistakeTestFilter;
+    elements.testFilter.append(option);
   });
 }
 
@@ -356,6 +457,8 @@ function showMistakes(resetSelection = true) {
     selectedMistakeIds = new Set(missed.map((word) => word.id));
     mistakeStatusFilter = "all";
     mistakeCountFilter = null;
+    mistakeDirectionFilter = "all";
+    mistakeTestFilter = "all";
   }
 
   const settings = getSettings();
@@ -365,7 +468,11 @@ function showMistakes(resetSelection = true) {
   elements.statusFilters.querySelectorAll("button").forEach((button) => {
     button.classList.toggle("active", button.dataset.status === mistakeStatusFilter);
   });
+  elements.directionFilters.querySelectorAll("button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.direction === mistakeDirectionFilter);
+  });
   renderCountFilters(stats);
+  renderTestFilters();
   renderMistakeTable();
   showScreen("mistakes");
 }
@@ -374,6 +481,20 @@ function saveSessionStats() {
   if (session.statsSaved) return;
   const stats = getWordStats();
   const results = session.settings.mode === "test" ? session.judgments : session.results;
+  session.completedAt ||= new Date().toISOString();
+  session.historyEntry ||= {
+    id: session.testId,
+    completedAt: session.completedAt,
+    direction: session.settings.direction,
+    mode: session.settings.mode,
+    source: session.source,
+    from: session.source === "standard" ? session.settings.from : null,
+    to: session.source === "standard" ? session.settings.to : null,
+    questionCount: session.questions.length,
+    wrongWordIds: session.questions
+      .filter((word, index) => results[index] === false)
+      .map((word) => word.id),
+  };
 
   session.questions.forEach((word, index) => {
     const result = results[index];
@@ -393,6 +514,18 @@ function saveSessionStats() {
     session.statsSaved = true;
   } catch {
     // Results still work when browser storage is unavailable.
+  }
+
+  if (session.statsSaved) {
+    const history = getTestHistory();
+    if (history && !history.sessions.some((test) => test.id === session.testId)) {
+      history.sessions.push(session.historyEntry);
+      try {
+        localStorage.setItem(TEST_HISTORY_KEY, JSON.stringify(history));
+      } catch {
+        // Keep cumulative statistics when detailed history cannot be stored.
+      }
+    }
   }
   updateLearningStats();
 }
@@ -423,6 +556,8 @@ function beginQuiz(settings = getSettings(), customPool = null, source = "standa
   const requestedCount = customPool ? pool.length : settings.count === "all" ? pool.length : Number(settings.count);
   const questionCount = Math.min(requestedCount, pool.length);
   session = {
+    testId: crypto.randomUUID(),
+    startedAt: new Date().toISOString(),
     settings,
     source,
     sourceIds: pool.map((word) => word.id),
@@ -671,6 +806,7 @@ function showResult() {
   elements.correctCount.textContent = session.correct;
   elements.questionCount.textContent = total;
   elements.missCount.textContent = `${session.mistakes.length} WORDS`;
+  elements.resultTestLabel.textContent = formatTestLabel(session.historyEntry);
   elements.reviewList.replaceChildren();
   const stats = getWordStats();
 
@@ -735,6 +871,21 @@ elements.statusFilters.addEventListener("click", (event) => {
   elements.statusFilters.querySelectorAll("button").forEach((filterButton) => {
     filterButton.classList.toggle("active", filterButton === button);
   });
+  renderMistakeTable();
+});
+
+elements.directionFilters.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-direction]");
+  if (!button) return;
+  mistakeDirectionFilter = button.dataset.direction;
+  elements.directionFilters.querySelectorAll("button").forEach((filterButton) => {
+    filterButton.classList.toggle("active", filterButton === button);
+  });
+  renderMistakeTable();
+});
+
+elements.testFilter.addEventListener("change", () => {
+  mistakeTestFilter = elements.testFilter.value;
   renderMistakeTable();
 });
 

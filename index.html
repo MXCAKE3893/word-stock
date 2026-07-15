@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,12 @@
   <title>Word Stock | 単語テスト</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <div class="grain" aria-hidden="true"></div>
   <header class="site-header">
@@ -107,6 +111,15 @@
           </div>
         </div>
         <div>
+          <span class="toolbar-label">DIRECTION</span>
+          <div class="filter-buttons" id="direction-filters">
+            <button type="button" class="active" data-direction="all">すべて</button>
+            <button type="button" data-direction="en-ja">EN → JA</button>
+            <button type="button" data-direction="ja-en">JA → EN</button>
+            <button type="button" data-direction="legacy">旧データ</button>
+          </div>
+        </div>
+        <div>
           <span class="toolbar-label">MISTAKES</span>
           <div class="filter-buttons" id="count-filters"></div>
         </div>
@@ -114,6 +127,10 @@
           <button id="select-visible" type="button">表示中を全選択</button>
           <button id="clear-visible" type="button">表示中を解除</button>
         </div>
+        <label class="test-filter-group">
+          <span class="toolbar-label">TEST</span>
+          <select id="test-filter" class="filter-select" aria-label="間違えたテストで絞り込み"></select>
+        </label>
       </div>
 
       <div class="mistake-table-wrap">
@@ -124,7 +141,7 @@
               <th>ID</th>
               <th>英単語</th>
               <th>日本語</th>
-              <th>間違い</th>
+              <th>累計間違い</th>
               <th>正答率</th>
               <th>状態</th>
               <th>タグ</th>
@@ -164,7 +181,8 @@
         <div id="answer-feedback" class="answer-feedback" aria-live="polite"></div>
         <div id="test-navigation" class="test-navigation" hidden>
           <button id="previous-question" class="secondary-button" type="button">← 前の問題</button>
-          <button id="next-test-question" class="primary-button" type="button"><span>次の問題</span><span class="button-arrow">→</span></button>
+          <button id="next-test-question" class="primary-button" type="button"><span>次の問題</span><span
+              class="button-arrow">→</span></button>
         </div>
         <div id="review-actions" class="review-actions" hidden>
           <button id="mark-wrong" type="button"><span>2</span> 不正解</button>
@@ -182,6 +200,7 @@
       <div class="result-heading">
         <p class="eyebrow">SESSION COMPLETE</p>
         <h1>今日の成果。</h1>
+        <p id="result-test-label" class="result-test-label"></p>
       </div>
       <div class="score-card">
         <div class="score-ring" id="score-ring">
@@ -194,11 +213,14 @@
         </div>
       </div>
       <div id="review-section" class="review-section">
-        <div class="review-title"><h2>間違えた単語</h2><span id="miss-count">0 WORDS</span></div>
+        <div class="review-title">
+          <h2>間違えた単語</h2><span id="miss-count">0 WORDS</span>
+        </div>
         <div id="review-list" class="review-list"></div>
       </div>
       <div class="result-actions">
-        <button id="retry-button" class="primary-button" type="button"><span>同じ条件でもう一度</span><span class="button-arrow">↗</span></button>
+        <button id="retry-button" class="primary-button" type="button"><span>同じ条件でもう一度</span><span
+            class="button-arrow">↗</span></button>
         <button id="back-button" class="secondary-button" type="button">設定を変える</button>
       </div>
     </section>
@@ -207,4 +229,5 @@
   <footer><span>WORD STOCK</span><span>WORDS.CSV / 2026</span></footer>
   <script src="app.js"></script>
 </body>
+
 </html>
